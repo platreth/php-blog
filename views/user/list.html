@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MVC Test - Index</title>
+        <style>
+          body {
+            background-color: black;
+            color: yellow;
+          }
+          .username {
+            color: green;
+          }
+        </style>
+    </head>
+    <body>
+      <h2>List: </h2>
+      {% for user in userList %}
+        <li class="username">{{ user.name }}</li>
+      {% endfor %}
+      <hr />
+      <p>Quantity: {{ quantity }} users.</p>
+    </body>
+</html>
