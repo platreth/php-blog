@@ -8,14 +8,15 @@ $baseDir = dirname($vendorDir);
 return array(
     'Valitron\\' => array($vendorDir . '/vlucas/valitron/src/Valitron'),
     'Twig\\' => array($vendorDir . '/twig/twig/src'),
+    'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Symfony\\Polyfill\\Ctype\\' => array($vendorDir . '/symfony/polyfill-ctype'),
     'Spot\\' => array($vendorDir . '/vlucas/spot2/lib'),
     'SpotTest\\' => array($vendorDir . '/vlucas/spot2/tests'),
     'Sabre\\Event\\' => array($vendorDir . '/sabre/event/lib'),
     'Models\\' => array($baseDir . '/models'),
+    'Doctrine\\DBAL\\' => array($vendorDir . '/doctrine/dbal/lib/Doctrine/DBAL'),
     'Doctrine\\Common\\Cache\\' => array($vendorDir . '/doctrine/cache/lib/Doctrine/Common/Cache'),
-    'Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib/Doctrine/Common/Annotations'),
-    'Doctrine\\Common\\' => array($vendorDir . '/doctrine/common/lib/Doctrine/Common'),
+    'Doctrine\\Common\\' => array($vendorDir . '/doctrine/event-manager/lib/Doctrine/Common'),
     'Controllers\\' => array($baseDir . '/controllers'),
     'Components\\' => array($baseDir . '/components'),
 );

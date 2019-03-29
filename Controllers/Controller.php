@@ -17,6 +17,7 @@ class Controller
       $this->twig = new Twig_Environment($loader, array(
           'cache' => false,
       ));
-      //
+      //get profile
+      //redirect
     }
 }

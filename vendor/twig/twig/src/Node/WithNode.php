@@ -20,14 +20,14 @@ use Twig\Compiler;
  */
 class WithNode extends Node
 {
-    public function __construct(Node $body, Node $variables = null, $only = false, $lineno, $tag = null)
+    public function __construct(Node $body, Node $variables = null, bool $only = false, int $lineno, string $tag = null)
     {
         $nodes = ['body' => $body];
         if (null !== $variables) {
             $nodes['variables'] = $variables;
         }
 
-        parent::__construct($nodes, ['only' => (bool) $only], $lineno, $tag);
+        parent::__construct($nodes, ['only' => $only], $lineno, $tag);
     }
 
     public function compile(Compiler $compiler)
@@ -47,7 +47,9 @@ class WithNode extends Node
                 ->write("}\n")
                 ->write(sprintf("if (!is_array(\$%s)) {\n", $varsName))
                 ->indent()
-                ->write("throw new RuntimeError('Variables passed to the \"with\" tag must be a hash.');\n")
+                ->write("throw new RuntimeError('Variables passed to the \"with\" tag must be a hash.', ")
+                ->repr($this->getTemplateLine())
+                ->raw(", \$this->source);\n")
                 ->outdent()
                 ->write("}\n")
             ;

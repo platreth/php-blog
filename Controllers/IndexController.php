@@ -8,4 +8,8 @@ class IndexController extends Controller
     {
         echo $this->twig->render('home-page.html');
     }
+
+    public function ArticleShow($id) {
+    	echo $id;
+    }
 }
