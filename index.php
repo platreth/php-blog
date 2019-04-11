@@ -3,6 +3,10 @@
 require_once "vendor/autoload.php";
 use Controllers\IndexController;
 use Controllers\ErrorController;
+use Controllers\PostController;
+use Controllers\AdminController;
+
+
 
 
 
@@ -63,6 +67,12 @@ switch ($request_uri[0]) {
     // Everything else
     case '/blog/post':
       require 'views/post-page.php';
+      break;
+    case '/blog/add':
+      return (new PostController())->create();
+      break;
+    case '/admin':
+      return (new AdminController())->index();
       break;
     default:
         return (new ErrorController())->error404();
