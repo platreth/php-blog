@@ -10,6 +10,11 @@ class IndexController extends Controller
     }
 
     public function ArticleShow($id) {
-    	echo $id;
+    	var_dump($id);
+    	echo $this->twig->render('post-page.html');
+    }
+        public function blog() {
+
+         echo $this->twig->render('category-page.html');
     }
 }

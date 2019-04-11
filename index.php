@@ -5,6 +5,7 @@ use Controllers\IndexController;
 use Controllers\ErrorController;
 
 
+
 // Spot2 ORM Configuration
 function spot() {
     static $spot;
@@ -57,7 +58,7 @@ switch ($request_uri[0]) {
         break;
     // Blog page
     case '/blog':
-        require 'views/category-page.php';
+         return (new IndexController())->blog();
         break;
     // Everything else
     case '/blog/post':
