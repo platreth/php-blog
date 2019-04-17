@@ -3,6 +3,8 @@
 namespace Controllers;
 
 use Models\Users;
+use Models\UserManager;
+
 
 class PostController extends Controller
 {
@@ -14,21 +16,23 @@ class PostController extends Controller
 
  public function create()
     {
+      if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-      $userMapper = spot()->mapper('Models\Post');
-      $userMapper->migrate();
-      $newPost = $userMapper->create([
-        'id'      => 1,
-        'author'     => 1,
-        'title'     => 'test',
-        'image'     => 'test',
-        'subtitle'  => 'test',
-        'created_date'     => null,
-        'modified_date'     => null,
-        'content'     => 'test',
+          $userMapper = spot()->mapper('Models\Post');
+          $userMapper->migrate();
+          $newPost = $userMapper->create([
+            'id'      => 1,
+            'author'     => 1,
+            'title'     => 'test',
+            'image'     => 'test',
+            'subtitle'  => 'test',
+            'created_date'     => new \Datetime(),
+            'modified_date'     => new \Datetime(),
+            'content'     => 'test',
+          ]);
+      }
 
-      ]);
-      echo "A new user has been created: " . $newPost->name;
+      
     }
 
  public function listing()

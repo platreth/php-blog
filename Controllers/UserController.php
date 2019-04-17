@@ -3,6 +3,8 @@
 namespace Controllers;
 
 use Models\Users;
+use Models\UserManager;
+
 
 class UserController extends Controller
 {
@@ -12,21 +14,17 @@ class UserController extends Controller
     }
 
 
- public function create($params)
+ public function create()
     {
-      if (!isset($params['name'])) {
-        $name = "Example";
-      } else {
-        $name = $params['name'];
+      if ($_SERVER['REQUEST_METHOD'] === 'POST') 
+      {
+      //VERIFICATIONS !
+      $manager = new UserManager();
+      $manager->insert($_POST);
+      header("Location: /");      
       }
-      $userMapper = spot()->mapper('Models\Users');
-      $userMapper->migrate();
-      $myNewUser = $userMapper->create([
-        'name'      => $name,
-        'email'     => 'example@example.example',
-        'password'  => '123456789'
-      ]);
-      echo "A new user has been created: " . $myNewUser->name;
+      echo $this->twig->render('user/register.html');
+
     }
 
  public function listing()
@@ -35,7 +33,7 @@ class UserController extends Controller
       $userMapper->migrate();
       $userList = $userMapper->all();
 
-      echo $this->twig->render('list.html',
+      echo $this->twig->render('user/list.html',
         [
           "userList" => $userList,
           "quantity" => count($userList)

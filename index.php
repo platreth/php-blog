@@ -5,6 +5,8 @@ use Controllers\IndexController;
 use Controllers\ErrorController;
 use Controllers\PostController;
 use Controllers\AdminController;
+use Controllers\UserController;
+
 
 
 
@@ -73,6 +75,9 @@ switch ($request_uri[0]) {
       break;
     case '/admin':
       return (new AdminController())->index();
+      break;
+    case '/register':
+      return (new UserController())->create();
       break;
     default:
         return (new ErrorController())->error404();
