@@ -46,7 +46,9 @@ class PostController extends Controller
 
   public function mypost() {
 
-      echo $this->twig->render('post/my-post.html');
+      $manager = new PostManager();
+      $posts =  $manager->getMyPost();
+      echo $this->twig->render('post/my-post.html', array('posts' => $posts));
 
   }
 

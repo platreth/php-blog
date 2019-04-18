@@ -6,7 +6,7 @@ use Models\Post;
 
 class PostManager {
 
-	public function insert($post, $path) {
+  public function insert($post, $path) {
 
           $userMapper = spot()->mapper('Models\Post');
           $userMapper->migrate();
@@ -19,14 +19,21 @@ class PostManager {
           ]);
 }
 
-	public function check($post) {
+  public function check($post) {
 
-		$mapper = spot()->mapper('Models\Users');
+    $mapper = spot()->mapper('Models\Users');
         $mapper->migrate();
         $check = $mapper->first(['email' => $post['email'], 'password' => $post['mdp']]);
         return $check;
 
-	}
+  }
+
+  public function getMyPost() {
+        $mapper = spot()->mapper('Models\Post');
+        $mapper->migrate();
+        $check = $mapper->where(['author' => $_SESSION['id']]);
+        return $check;
+  }
 
 }
 

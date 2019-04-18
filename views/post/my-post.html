@@ -12,8 +12,45 @@
 <form class="text-center border border-light p-5" method="POST" enctype="multipart/form-data">
     <h1>Mes posts</h1>
         <h1>{{message}}</h1>
+              <section class="text-center">
 
-    
+                <div class="row mb-4 wow fadeIn">
+
+          <!--Grid column-->
+{% for post in posts %}
+          <div class="col-lg-4 col-md-12 mb-4">
+ <!--Card-->
+         <!--Grid row-->
+
+            <div class="card">
+
+              <!--Card image-->
+              <div class="view overlay">
+                <div class="embed-responsive embed-responsive-16by9 rounded-top">
+                  <img class="embed-responsive-item" src="/{{ post.image|e }}" ></img>
+                </div>
+              </div>
+
+              <!--Card content-->
+              <div class="card-body">
+                <!--Title-->
+                <h4 class="card-title">{{ post.title|e }}</h4>
+                <!--Text-->
+                <p class="card-text">{{ post.content|e }}</p>
+                <p class="card-text">
+                  <strong>{{ post.subtitle|e }}</strong>
+                </p>
+                <a href="">Modifier</a>
+                <span>|</span>
+                <a href="">Supprimer</a>
+              </div>
+
+            </div>
+            <!--/.Card-->
+
+</div>
+{% endfor %}
+    </div></section>
 <a href="/account">Retour</a>
 </form>
 </div>
