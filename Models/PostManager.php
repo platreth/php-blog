@@ -19,15 +19,6 @@ class PostManager {
           ]);
 }
 
-  public function check($post) {
-
-    $mapper = spot()->mapper('Models\Users');
-        $mapper->migrate();
-        $check = $mapper->first(['email' => $post['email'], 'password' => $post['mdp']]);
-        return $check;
-
-  }
-
   public function getMyPost() {
         $mapper = spot()->mapper('Models\Post');
         $mapper->migrate();

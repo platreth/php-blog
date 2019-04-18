@@ -79,19 +79,4 @@ public function account() {
 
 }
 
-
-
- public function listing()
-    {
-      $userMapper = spot()->mapper('Models\Users');
-      $userMapper->migrate();
-      $userList = $userMapper->all();
-
-      echo $this->twig->render('user/list.html',
-        [
-          "userList" => $userList,
-          "quantity" => count($userList)
-        ]
-      );
-    }
 }
