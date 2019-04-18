@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
-    <head>
+
         {% block head %}
+            <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -14,11 +15,11 @@
   <link href="Public/css/mdb.min.css" rel="stylesheet">
   <!-- Your custom styles (optional) -->
   <link href="Public/css/style.min.css" rel="stylesheet">
-        {% endblock %}
     </head>
+        {% endblock %}
+        {% block header %}
     <body>
       <header>
-        {% block header %}
     <!-- Navbar -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
       <div class="container">
@@ -46,13 +47,16 @@
             <li class="nav-item">
               <a class="nav-link waves-effect" href="/blog">Catégories</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link waves-effect" href="/register">Inscription</a>
-            </li>
           </ul>
 
           <!-- Right -->
           <ul class="navbar-nav nav-flex-icons">
+            <li class="nav-item">
+              <a class="nav-link waves-effect" href="/register">Inscription</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link waves-effect" href="/login">Connexion</a>
+            </li>
             <li class="nav-item">
               <a href="https://fr.linkedin.com/in/hugo-platret-86b82a175?trk=prof-samename-picture" class="nav-link waves-effect" target="_blank">
                 <i class="fab fa-linkedin"></i>
@@ -78,14 +82,13 @@
     <!-- Navbar -->
 
 
-        {% endblock %}
       </header>
-        <div id="content">{% block content %}{% endblock %}</div>
-        <footer>
-        <div id="footer">
+        {% endblock %}
+{% block content %}{% endblock %}
             {% block footer %}
+        <footer>
     <!--Footer-->
-  <footer class="page-footer text-center font-small mdb-color darken-2 mt-4 wow fadeIn">
+  <footer class="page-footer text-center font-small mdb-color darken-2 mt-4 wow fadeIn" style="padding-left: 0 !important;">
 
     <!--Call to action-->
     <div class="pt-4">
@@ -147,10 +150,10 @@
 
   </footer>
   <!--/.Footer-->           
-  {% endblock %}
           </footer>    
         </body>
         </div>
+  {% endblock %}
 </html>
 
 {% block script %}

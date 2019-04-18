@@ -79,6 +79,9 @@ switch ($request_uri[0]) {
     case '/register':
       return (new UserController())->create();
       break;
+    case '/login':
+        return (new UserController())->login();
+        break;
     default:
         return (new ErrorController())->error404();
         break;
