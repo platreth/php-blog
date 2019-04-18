@@ -48,21 +48,37 @@ class UserController extends Controller
         $manager = new UserManager();
         $check = $manager->check($_POST);
         if (!$check == false):
-          echo $this->twig->render('user/login.html', array('message' => 'Félicitation, vous êtes connecté !'));      
+          $_SESSION['id'] = $check->id;
+          $_SESSION['name'] = $check->name;
+          $_SESSION['firstname'] = $check->firstname;
+        header("Location: /");
         else:
           echo $this->twig->render('user/login.html', array('message' => 'Erreur sur le mot de passe ou le mail.'));      
         endif;
-        
-
-
+      
       else:
-      echo $this->twig->render('user/login.html');      
 
+          echo $this->twig->render('user/login.html');
 
-
-    endif;
+        endif;
 
     }
+
+
+
+public function logout() {
+
+        $_SESSION = array();
+        session_destroy();
+        header("Location: /");
+}
+
+public function account() {
+
+          echo $this->twig->render('user/account.html');
+
+}
+
 
 
  public function listing()

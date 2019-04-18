@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+
+
+
+{% block content %}
+
+
+{% if session %}
+<div class="container" style="margin-top: 100px;">
+<!-- Default form register -->
+<form class="text-center border border-light p-5" method="POST" enctype="multipart/form-data">
+    <h1>Mes posts</h1>
+        <h1>{{message}}</h1>
+
+    
+<a href="/account">Retour</a>
+</form>
+</div>
+
+{% else %}
+</div>
+
+<script type="text/javascript">
+    new Noty({
+    text: "{{message}}",
+
+}).show();
+</script>
+{% endif %}
+
+{% endblock %}
+

@@ -82,6 +82,18 @@ switch ($request_uri[0]) {
     case '/login':
         return (new UserController())->login();
         break;
+    case '/logout':
+        return (new UserController())->logout();
+        break;
+    case '/account':
+        return (new UserController())->account();
+        break;
+    case '/post/new':
+        return (new PostController())->new();
+        break;
+    case '/post/mypost':
+        return (new PostController())->mypost();
+        break;
     default:
         return (new ErrorController())->error404();
         break;

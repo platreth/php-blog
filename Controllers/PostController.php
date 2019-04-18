@@ -3,7 +3,7 @@
 namespace Controllers;
 
 use Models\Users;
-use Models\UserManager;
+use Models\PostManager;
 
 
 class PostController extends Controller
@@ -14,26 +14,42 @@ class PostController extends Controller
     }
 
 
- public function create()
+ public function new()
     {
-      if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+      if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 
-          $userMapper = spot()->mapper('Models\Post');
-          $userMapper->migrate();
-          $newPost = $userMapper->create([
-            'id'      => 1,
-            'author'     => 1,
-            'title'     => 'test',
-            'image'     => 'test',
-            'subtitle'  => 'test',
-            'created_date'     => new \Datetime(),
-            'modified_date'     => new \Datetime(),
-            'content'     => 'test',
-          ]);
-      }
+        $uploaddir = 'Public/img/post/';
+        $uploadfile = $uploaddir . basename($_FILES['image']['name']);
 
-      
+        if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile)) {
+
+           $manager = new PostManager();
+           $manager->insert($_POST, $uploadfile);
+
+          echo $this->twig->render('post/new-post.html', array('message' => 'ok'));
+
+        } 
+        else 
+        {
+          echo $this->twig->render('post/new-post.html', array('message' => 'erreur'));
+
+        }
+
+
+      else:
+
+      echo $this->twig->render('post/new-post.html');
+
+
+      endif;
     }
+
+  public function mypost() {
+
+      echo $this->twig->render('post/my-post.html');
+
+  }
+
 
  public function listing()
     {
