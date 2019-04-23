@@ -94,6 +94,9 @@ switch ($request_uri[0]) {
     case '/post/mypost':
         return (new PostController())->mypost();
         break;
+    case '/user/information':
+        return (new UserController())->information();
+        break;
     default:
         return (new ErrorController())->error404();
         break;

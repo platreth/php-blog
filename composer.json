@@ -3,7 +3,8 @@
         "monolog/monolog": "1.0.*",
         "vlucas/spot2": "^2.2",
         "twig/twig": "^2.7",
-        "needim/noty": "^3.1"
+        "needim/noty": "^3.1",
+        "twig/extensions": "^1.5"
     },
 
     "autoload": {

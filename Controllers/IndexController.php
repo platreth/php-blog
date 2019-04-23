@@ -2,11 +2,16 @@
 
 namespace Controllers;
 
+use Models\Post;
+use Models\PostManager;
+
 class IndexController extends Controller
 {
     public function index()
     {
-        echo $this->twig->render('index/home-page.html');
+        $manager = new PostManager();
+        $posts =  $manager->getLastPost();
+        echo $this->twig->render('index/home-page.html', array('posts' => $posts));
     }
 
     public function ArticleShow($id) {

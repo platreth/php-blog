@@ -17,7 +17,9 @@ class Post extends \Spot\Entity
         'subtitle'      => ['type' => 'string', 'required' => true],
         'created_date'  => ['type' => 'datetime', 'required' => true, 'value' => $datetime],
         'modified_date' => ['type' => 'datetime', 'required' => true, 'value' => $datetime],
-        'content'       => ['type' => 'string', 'required' => true],
+        'content'       => ['type' => 'text', 'required' => true],
+        'status'       => ['type' => 'string', 'required' => true, 'value' => 'active'],
+
       ];
     }
 }

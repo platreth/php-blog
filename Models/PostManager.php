@@ -26,5 +26,13 @@ class PostManager {
         return $check;
   }
 
+  public function getLastPost() {
+        $mapper = spot()->mapper('Models\Post');
+        $mapper->migrate();
+        $check = $mapper->where(['status' => 'active'])
+            ->order(['created_date' => 'DESC'])
+            ->limit(6);
+        return $check;
+  }
 }
 

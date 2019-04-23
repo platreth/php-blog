@@ -19,6 +19,8 @@ class Controller
           'cache' => false,
       ));
       $this->twig->addGlobal('session', $_SESSION);
+      $this->twig->addExtension(new \Twig_Extensions_Extension_Text());
+
 
       //get profile
       //redirect

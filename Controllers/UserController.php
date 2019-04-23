@@ -24,7 +24,7 @@ class UserController extends Controller
 
               $manager = new UserManager();
               $manager->insert($_POST);
-              echo $this->twig->render('user/login.html', array('message' => 'Votre compte a été crée avec succès !'));  
+              echo $this->twig->render('index/home-page.html', array('message' => 'Votre compte a été crée avec succès !'));  
 
               else:
                 echo $this->twig->render('user/register.html', array('message' => 'Le mot de passe doit contenir au moins 8 caractères !'));   
@@ -51,6 +51,8 @@ class UserController extends Controller
           $_SESSION['id'] = $check->id;
           $_SESSION['name'] = $check->name;
           $_SESSION['firstname'] = $check->firstname;
+          $_SESSION['image'] = $check->image;
+
         header("Location: /");
         else:
           echo $this->twig->render('user/login.html', array('message' => 'Erreur sur le mot de passe ou le mail.'));      
@@ -79,4 +81,41 @@ public function account() {
 
 }
 
+public function information() {
+
+          $manager = new UserManager();
+          $user = $manager->information($_SESSION['id']);
+
+      if ($_SERVER['REQUEST_METHOD'] === 'POST'):
+
+
+        if (!is_dir("Public/img/user/". $user->id ."")):
+          mkdir("Public/img/user/". $user->id ."", 0777);
+        endif;
+        $uploaddir = 'Public/img/user/' . $user->id .'/';
+        $uploadfile = $uploaddir . basename($_FILES['image']['name']);
+
+        if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile)) {
+
+          $manager->updateInformation($_POST, $uploadfile, $user->id);
+          $_SESSION['image'] = $uploadfile;
+          $_SESSION['name'] = $_POST['nom'];
+          $_SESSION['firstname'] = $_POST['prenom'];
+
+        header("Location: /");
+
+        } 
+        else 
+        {
+          echo $this->twig->render('user/login.html', array('message' => 'erreur'));
+
+        }
+
+
+      else:
+
+          echo $this->twig->render('user/information.html', array('user' => $user));
+
+      endif;
+    }
 }
