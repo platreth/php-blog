@@ -52,4 +52,37 @@ class PostController extends Controller
 
   }
 
+  public function edit() {
+
+      $manager = new PostManager();
+      $post = $manager->getPost($_GET['id']);
+      if ($_SERVER['REQUEST_METHOD'] === 'POST'):
+
+          $uploaddir = 'Public/img/post/';
+          $uploadfile = $uploaddir . basename($_FILES['image']['name']);
+
+          if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile)):
+
+            $manager->updatePost($_POST, $post->id, $uploadfile);
+
+            header("Location: /");
+        endif;
+
+      else:
+
+        echo $this->twig->render('post/edit-post.html', array('post' => $post));
+
+      endif;
+
+  }
+
+  public function delete() {
+
+     $manager = new PostManager();
+      $post = $manager->deletePost($_GET['id']);
+            header("Location: /");
+
+
+  }
+
 }

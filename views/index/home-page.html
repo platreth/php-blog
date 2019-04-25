@@ -45,9 +45,12 @@
                 <!--Title-->
                 <h4 class="card-title">{{ post.title|e }}</h4>
                 <p class="card-text">
+                  {{ post.subtitle|e }}
+                </p>
+                <p class="card-text">
                   <strong>{{ post.author|e }}</strong>
                 </p>
-                <p class="card-text">{{ post.content|e|striptags|trim|truncate(30, true, '...') }}</p>
+                <p class="card-text">{{ post.created_date | date() }}</p>
               </div>
 
             </div>

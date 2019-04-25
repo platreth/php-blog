@@ -15,16 +15,27 @@
   <link href="/Public/css/mdb.min.css" rel="stylesheet">
   <!-- Your custom styles (optional) -->
   <link href="/Public/css/style.min.css" rel="stylesheet">
+  <!-- Include CSS for icons. -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<!-- Include Editor style. -->
+<link href="https://cdn.jsdelivr.net/npm/froala-editor@2.9.0/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.jsdelivr.net/npm/froala-editor@2.9.0/css/froala_style.min.css" rel="stylesheet" type="text/css" />
     </head>
         {% endblock %}
         {% block header %}
     <body>
       <header>
     <!-- Navbar -->
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar" style='padding-left: 0 !important;'>
       <div class="container">
 
         <!-- Brand -->
+                    {% if session %}
+
+           <img style="height: 30px; width: 30px; margin-right: 10px; margin-left: 20px;" class="embed-responsive-item" src="/{{ session.image|e }}" ></img>
+                       {% endif %} 
+
         <a class="navbar-brand waves-effect" href="/">
           <strong class="blue-text">Hugo Platret</strong>
         </a>
@@ -41,16 +52,13 @@
           <!-- Left -->
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link waves-effect" href="/">Accueil
-              </a>
+              <a class="nav-link waves-effect" href="/blog">Blog</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link waves-effect" href="/blog">Catégories</a>
-            </li>
-          </ul>
+   
 
+          </ul>
           <!-- Right -->
-          <ul class="navbar-nav nav-flex-icons">
+          <ul class="navbar-nav mr-auto">
             {% if session %}
             <li class="nav-item">
               <a class="nav-link waves-effect" href="/account">Mon compte</a>
@@ -58,9 +66,6 @@
             <li class="nav-item">
               <a class="nav-link waves-effect" href="/logout">Déconnexion</a>
             </li>
-            <li class="nav-item">
-            <i><img style="height: 40px; width: 40px;" class="embed-responsive-item" src="/{{ session.image|e }}" ></img></i>
-          </li>
             {% else %}
              <li class="nav-item">
               <a class="nav-link waves-effect" href="/register">Inscription</a>
@@ -68,23 +73,25 @@
             <li class="nav-item">
               <a class="nav-link waves-effect" href="/login">Connexion</a>
             </li>
-            {% endif %}
-            <li class="nav-item">
-              <a href="https://fr.linkedin.com/in/hugo-platret-86b82a175?trk=prof-samename-picture" class="nav-link waves-effect" target="_blank">
-                <i class="fab fa-linkedin"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_blank">
-                <i class="fab fa-twitter"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="https://github.com/platreth" class="nav-link border border-light rounded waves-effect"
-                target="_blank">
-                <i class="fab fa-github mr-2"></i>GitHub
-              </a>
-            </li>
+            {% endif %} 
+            </ul>      
+          <ul class="navbar-nav nav-flex-icons">
+              <li class="nav-item">
+                <a href="https://fr.linkedin.com/in/hugo-platret-86b82a175?trk=prof-samename-picture" class="nav-link waves-effect" target="_blank">
+                  <i class="fab fa-linkedin"></i>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_blank">
+                  <i class="fab fa-twitter"></i>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="https://github.com/platreth" class="nav-link border border-light rounded waves-effect"
+                  target="_blank">
+                  <i class="fab fa-github mr-2"></i>GitHub
+                </a>
+              </li>
           </ul>
 
         </div>
@@ -171,15 +178,18 @@
 {% block script %}
   <!-- SCRIPTS -->
   <!-- JQuery -->
-  <script type="text/javascript" src="Public/js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="/Public/js/jquery-3.3.1.min.js"></script>
   <!-- Bootstrap tooltips -->
-  <script type="text/javascript" src="Public/js/popper.min.js"></script>
+  <script type="text/javascript" src="/Public/js/popper.min.js"></script>
   <!-- Bootstrap core JavaScript -->
-  <script type="text/javascript" src="Public/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/Public/js/bootstrap.min.js"></script>
   <!-- MDB core JavaScript -->
-  <script type="text/javascript" src="Public/js/mdb.min.js"></script>
+  <script type="text/javascript" src="/Public/js/mdb.min.js"></script>
 
-  <script type="text/javascript" src="Public/js/homepage.js"></script>
+  <script type="text/javascript" src="/Public/js/homepage.js"></script>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/froala-editor@2.9.0/js/froala_editor.pkgd.min.js"></script>
+
 
   <!-- Initializations -->
   <script type="text/javascript">
@@ -187,4 +197,7 @@
     new WOW().init();
 
   </script>
+  <style type="text/css">
+    body > div.container > form > div.form-group > div.fr-box.fr-basic.fr-top > div.fr-wrapper > div:nth-child(1) > a {display: none !important;}
+  </style>
   {% endblock %}

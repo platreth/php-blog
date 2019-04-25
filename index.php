@@ -59,20 +59,13 @@ switch ($request_uri[0]) {
     case '/':
         return (new IndexController())->index();
         break;
-    case '/blog/show':
+    case '/post/show':
         return (new IndexController())->ArticleShow($_GET['id']);
         break;
     // Blog page
     case '/blog':
          return (new IndexController())->blog();
         break;
-    // Everything else
-    case '/blog/post':
-      require 'views/post-page.php';
-      break;
-    case '/blog/add':
-      return (new PostController())->create();
-      break;
     case '/admin':
       return (new AdminController())->index();
       break;
@@ -96,6 +89,12 @@ switch ($request_uri[0]) {
         break;
     case '/user/information':
         return (new UserController())->information();
+        break;
+    case '/post/edit':
+        return (new PostController())->edit();
+        break;
+    case '/post/delete':
+        return (new PostController())->delete();
         break;
     default:
         return (new ErrorController())->error404();

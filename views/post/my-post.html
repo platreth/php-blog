@@ -36,13 +36,13 @@
                 <!--Title-->
                 <h4 class="card-title">{{ post.title|e }}</h4>
                 <!--Text-->
-                <p class="card-text">{{ post.content|e }}</p>
+                <p class="card-text">{{ post.created_date | date() }}</p>
                 <p class="card-text">
                   <strong>{{ post.subtitle|e }}</strong>
                 </p>
-                <a href="">Modifier</a>
+                <a href="/post/edit?id={{ post.id }}">Modifier</a>
                 <span>|</span>
-                <a href="">Supprimer</a>
+                <a href="/post/delete?id={{ post.id }}">Supprimer</a>
               </div>
 
             </div>

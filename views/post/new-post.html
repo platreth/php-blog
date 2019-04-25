@@ -51,13 +51,18 @@
 {% else %}
 </div>
 
-<script type="text/javascript">
-    new Noty({
-    text: "{{message}}",
-
-}).show();
-</script>
 {% endif %}
+<script type="text/javascript" src="/Public/js/jquery-3.3.1.min.js"></script>
+
+
+<script type="text/javascript">
+        $(document).ready(function() {
+      $(function() {
+    $('textarea').froalaEditor()
+  });
+
+  });
+</script>
 
 {% endblock %}
 
