@@ -60,7 +60,7 @@ switch ($request_uri[0]) {
         return (new IndexController())->index();
         break;
     case '/post/show':
-        return (new IndexController())->ArticleShow($_GET['id']);
+        return (new PostController())->ArticleShow($_GET['id']);
         break;
     // Blog page
     case '/blog':

@@ -29,8 +29,8 @@
 
           <!--Grid column-->
           <div class="col-lg-4 col-md-12 mb-4">
-
             <!--Card-->
+          <a href="/post/show?id={{ post.id }}">
             <div class="card">
 
               <!--Card image-->
@@ -54,8 +54,10 @@
               </div>
 
             </div>
+        </a>
             <!--/.Card-->
           </div>
+
           <!--Grid column-->
 {% endfor %}
 
@@ -110,4 +112,20 @@
     </div>
   </main>
   <!--Main layout-->
+<script type="text/javascript" src="vendor/needim/noty/lib/noty.js"></script>
+  <script type="text/javascript">
+    {literal}
+
+new Noty({
+    theme: 'sunset', 
+    type: 'success',
+    layout: 'topRight',
+    text: '{{message}}',
+        animation: {
+        open: 'animated bounceInRight', // Animate.css class names
+        close: 'animated bounceOutRight' // Animate.css class names
+    }
+}).show();
+    {/literal}
+  </script>
     {% endblock %}

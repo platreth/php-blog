@@ -85,4 +85,11 @@ class PostController extends Controller
 
   }
 
+    public function ArticleShow($id) {
+      var_dump($id);
+      $manager = new PostManager();
+      $post = $manager->getPost($id);
+      echo $this->twig->render('index/post-page.html', array('post' => $post));
+    }
+
 }
