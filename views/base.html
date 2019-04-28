@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+        {% block head %}
+            <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Hugo Platret</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="/Public/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="/Public/css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="/Public/css/style.min.css" rel="stylesheet">
+  <!-- NOTY -->
+  <link rel="stylesheet" type="text/css" href="vendor/needim/noty/lib/noty.css">
+
+  <!-- Include CSS for icons. -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<!-- Include Editor style. -->
+<link href="https://cdn.jsdelivr.net/npm/froala-editor@2.9.0/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.jsdelivr.net/npm/froala-editor@2.9.0/css/froala_style.min.css" rel="stylesheet" type="text/css" />
+    </head>
+        {% endblock %}
+        {% block header %}
+    <body>
+      <header>
+    <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar" style='padding-left: 0 !important;'>
+      <div class="container">
+
+        <!-- Brand -->
+                    {% if session %}
+
+           <img style="height: 30px; width: 30px; margin-right: 10px; margin-left: 20px;" class="embed-responsive-item" src="/{{ session.image|e }}" ></img>
+                       {% endif %} 
+
+        <a class="navbar-brand waves-effect" href="/">
+          <strong class="blue-text">Hugo Platret</strong>
+        </a>
+
+        <!-- Collapse -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Links -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+          <!-- Left -->
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link waves-effect" href="/blog">Blog</a>
+            </li>
+   
+
+          </ul>
+          <!-- Right -->
+          <ul class="navbar-nav mr-auto">
+            {% if session %}
+            <li class="nav-item">
+              <a class="nav-link waves-effect" href="/account">Mon compte</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link waves-effect" href="/logout">Déconnexion</a>
+            </li>
+            {% else %}
+             <li class="nav-item">
+              <a class="nav-link waves-effect" href="/register">Inscription</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link waves-effect" href="/login">Connexion</a>
+            </li>
+            {% endif %} 
+            </ul>      
+          <ul class="navbar-nav nav-flex-icons">
+              <li class="nav-item">
+                <a href="https://fr.linkedin.com/in/hugo-platret-86b82a175?trk=prof-samename-picture" class="nav-link waves-effect" target="_blank">
+                  <i class="fab fa-linkedin"></i>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_blank">
+                  <i class="fab fa-twitter"></i>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="https://github.com/platreth" class="nav-link border border-light rounded waves-effect"
+                  target="_blank">
+                  <i class="fab fa-github mr-2"></i>GitHub
+                </a>
+              </li>
+          </ul>
+
+        </div>
+
+      </div>
+    </nav>
+    <!-- Navbar -->
+
+
+      </header>
+        {% endblock %}
+{% block content %}{% endblock %}
+            {% block footer %}
+        <footer>
+    <!--Footer-->
+  <footer class="page-footer text-center font-small mdb-color darken-2 mt-4 wow fadeIn" style="padding-left: 0 !important;">
+
+    <!--Call to action-->
+    <div class="pt-4">
+      <a class="btn btn-outline-white" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank"
+        role="button">Download MDB
+        <i class="fas fa-download ml-2"></i>
+      </a>
+      <a class="btn btn-outline-white" href="https://mdbootstrap.com/education/bootstrap/" target="_blank" role="button">Start
+        free tutorial
+        <i class="fas fa-graduation-cap ml-2"></i>
+      </a>
+    </div>
+    <!--/.Call to action-->
+
+    <hr class="my-4">
+
+    <!-- Social icons -->
+    <div class="pb-4">
+      <a href="https://www.facebook.com/mdbootstrap" target="_blank">
+        <i class="fab fa-facebook-f mr-3"></i>
+      </a>
+
+      <a href="https://twitter.com/MDBootstrap" target="_blank">
+        <i class="fab fa-twitter mr-3"></i>
+      </a>
+
+      <a href="https://www.youtube.com/watch?v=7MUISDJ5ZZ4" target="_blank">
+        <i class="fab fa-youtube mr-3"></i>
+      </a>
+
+      <a href="https://plus.google.com/u/0/b/107863090883699620484" target="_blank">
+        <i class="fab fa-google-plus-g mr-3"></i>
+      </a>
+
+      <a href="https://dribbble.com/mdbootstrap" target="_blank">
+        <i class="fab fa-dribbble mr-3"></i>
+      </a>
+
+      <a href="https://pinterest.com/mdbootstrap" target="_blank">
+        <i class="fab fa-pinterest mr-3"></i>
+      </a>
+
+      <a href="https://github.com/mdbootstrap/bootstrap-material-design" target="_blank">
+        <i class="fab fa-github mr-3"></i>
+      </a>
+
+      <a href="http://codepen.io/mdbootstrap/" target="_blank">
+        <i class="fab fa-codepen mr-3"></i>
+      </a>
+    </div>
+    <!-- Social icons -->
+
+    <!--Copyright-->
+    <div class="footer-copyright py-3">
+      © 2018 Copyright:
+      <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> MDBootstrap.com </a>
+    </div>
+    <!--/.Copyright-->
+
+  </footer>
+  <!--/.Footer-->           
+          </footer>    
+        </body>
+        </div>
+  {% endblock %}
+</html>
+
+{% block script %}
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" src="/Public/js/jquery-3.3.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="/Public/js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="/Public/js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="/Public/js/mdb.min.js"></script>
+
+  <script type="text/javascript" src="/Public/js/homepage.js"></script>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/froala-editor@2.9.0/js/froala_editor.pkgd.min.js"></script>
+
+
+  <!-- Initializations -->
+  <script type="text/javascript">
+    // Animations initialization
+    new WOW().init();
+
+  </script>
+  <style type="text/css">
+    body > div.container > form > div.form-group > div.fr-box.fr-basic.fr-top > div.fr-wrapper > div:nth-child(1) > a {display: none !important;}
+  </style>
+  {% endblock %}

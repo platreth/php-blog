@@ -5,6 +5,8 @@ use Controllers\IndexController;
 use Controllers\ErrorController;
 use Controllers\PostController;
 use Controllers\AdminController;
+use Controllers\UserController;
+
 
 
 
@@ -57,23 +59,43 @@ switch ($request_uri[0]) {
     case '/':
         return (new IndexController())->index();
         break;
-    case '/blog/show':
-        return (new IndexController())->ArticleShow($_GET['id']);
+    case '/post/show':
+        return (new PostController())->ArticleShow($_GET['id']);
         break;
     // Blog page
     case '/blog':
          return (new IndexController())->blog();
         break;
-    // Everything else
-    case '/blog/post':
-      require 'views/post-page.php';
-      break;
-    case '/blog/add':
-      return (new PostController())->create();
-      break;
     case '/admin':
       return (new AdminController())->index();
       break;
+    case '/register':
+      return (new UserController())->create();
+      break;
+    case '/login':
+        return (new UserController())->login();
+        break;
+    case '/logout':
+        return (new UserController())->logout();
+        break;
+    case '/account':
+        return (new UserController())->account();
+        break;
+    case '/post/new':
+        return (new PostController())->new();
+        break;
+    case '/post/mypost':
+        return (new PostController())->mypost();
+        break;
+    case '/user/information':
+        return (new UserController())->information();
+        break;
+    case '/post/edit':
+        return (new PostController())->edit();
+        break;
+    case '/post/delete':
+        return (new PostController())->delete();
+        break;
     default:
         return (new ErrorController())->error404();
         break;

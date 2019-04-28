@@ -6,6 +6,6 @@ class AdminController extends Controller
 {
     public function index()
     {
-        echo $this->twig->render('dashboard.html');
+        echo $this->twig->render('admin/dashboard.html');
     }
 }

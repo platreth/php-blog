@@ -8,15 +8,18 @@ class Post extends \Spot\Entity
 
     public static function fields()
     {
+        $datetime = new \DateTime('-3 days');
       return [
         'id'            => ['type' => 'integer', 'primary' => true, 'autoincrement' => true],
         'author'        => ['type' => 'integer', 'required' => true],
         'title'         => ['type' => 'string', 'required' => true, 'unique' => true],
         'image'         => ['type' => 'string', 'required' => true],
         'subtitle'      => ['type' => 'string', 'required' => true],
-        'created_date'  => ['type' => 'date', 'required' => false],
-        'modified_date' => ['type' => 'date', 'required' => false],
-        'content'       => ['type' => 'string', 'required' => true],
+        'created_date'  => ['type' => 'datetime', 'required' => true, 'value' => $datetime],
+        'modified_date' => ['type' => 'datetime', 'required' => true, 'value' => $datetime],
+        'content'       => ['type' => 'text', 'required' => true],
+        'status'       => ['type' => 'string', 'required' => true, 'value' => 'active'],
+
       ];
     }
 }
