@@ -34,7 +34,7 @@
       <div class="container">
 
         <!-- Brand -->
-                    {% if session %}
+                    {% if session.user %}
 
            <img style="height: 30px; width: 30px; margin-right: 10px; margin-left: 20px;" class="embed-responsive-item" src="/{{ session.image|e }}" ></img>
                        {% endif %} 
@@ -62,7 +62,7 @@
           </ul>
           <!-- Right -->
           <ul class="navbar-nav mr-auto">
-            {% if session %}
+            {% if session.user %}
             <li class="nav-item">
               <a class="nav-link waves-effect" href="/account">Mon compte</a>
             </li>
@@ -108,6 +108,8 @@
         {% endblock %}
 {% block content %}{% endblock %}
             {% block footer %}
+
+
         <footer>
     <!--Footer-->
   <footer class="page-footer text-center font-small mdb-color darken-2 mt-4 wow fadeIn" style="padding-left: 0 !important;">
@@ -203,4 +205,26 @@
   <style type="text/css">
     body > div.container > form > div.form-group > div.fr-box.fr-basic.fr-top > div.fr-wrapper > div:nth-child(1) > a {display: none !important;}
   </style>
+  <script type="text/javascript" src="vendor/needim/noty/lib/noty.js"></script>
+  <script type="text/javascript">
+    {%for type, messages in flashmessage%}
+      {%for message in messages%}
+       new Noty({
+        theme: 'sunset', 
+        type: '{{type}}',
+        layout: 'topRight',
+        text: '{{message}}',
+            animation: {
+            open: 'animated bounceInRight', // Animate.css class names
+            close: 'animated bounceOutRight' // Animate.css class names
+        }
+    }).show();
+      {%endfor%}
+    {%endfor%}
+
+
+  {% if message is defined and message|length>0 %} 
+    
+  {%endif%}
+  </script>
   {% endblock %}

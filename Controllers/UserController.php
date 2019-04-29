@@ -48,12 +48,10 @@ class UserController extends Controller
         $manager = new UserManager();
         $check = $manager->check($_POST);
         if (!$check == false):
-          $_SESSION['id'] = $check->id;
-          $_SESSION['name'] = $check->name;
-          $_SESSION['firstname'] = $check->firstname;
-          $_SESSION['image'] = $check->image;
 
-        header("Location: /");
+          $_SESSION['user'] = $check;
+          header("Location: /");
+
         else:
           echo $this->twig->render('user/login.html', array('message' => 'Erreur sur le mot de passe ou le mail.'));      
         endif;
@@ -70,9 +68,10 @@ class UserController extends Controller
 
 public function logout() {
 
-        $_SESSION = array();
         session_destroy();
-        header("Location: /");
+        session_start();
+        $this->setFlashMessage('Vous êtes bien déconnecté', false, 'info');
+        header("Location: /login");
 }
 
 public function account() {

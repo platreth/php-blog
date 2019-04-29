@@ -11,12 +11,7 @@ class IndexController extends Controller
     {
         $manager = new PostManager();
         $posts =  $manager->getLastPost();
-        echo $this->twig->render('index/home-page.html', array('posts' => $posts));
-    }
-
-    public function ArticleShow($id) {
-    	var_dump($id);
-    	echo $this->twig->render('index/post-page.html');
+        echo $this->twig->render('index/home-page.html', array('posts' => $posts, 'message' => "test"));
     }
         public function blog() {
 

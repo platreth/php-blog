@@ -1,8 +1,12 @@
 <?php
 
 namespace Models;
+use \Spot\EntityInterface as Entity;
+use \Spot\MapperInterface as Mapper;
+use Models\Users;
 
-class Post extends \Spot\Entity
+
+class Post extends \Spot\Entity 
 {
     protected static $table = 'post';
 
@@ -21,5 +25,11 @@ class Post extends \Spot\Entity
         'status'       => ['type' => 'string', 'required' => true, 'value' => 'active'],
 
       ];
+    }
+    public static function relations(Mapper $mapper, Entity $entity)
+    {
+        return [
+            'user' => $mapper->belongsTo($entity, 'Models\Users', 'author')
+        ];
     }
 }

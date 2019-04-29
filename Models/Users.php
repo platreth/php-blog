@@ -1,6 +1,8 @@
 <?php
 
 namespace Models;
+use \Spot\EntityInterface as Entity;
+use \Spot\MapperInterface as Mapper;
 
 class Users extends \Spot\Entity
 {

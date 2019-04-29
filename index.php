@@ -53,14 +53,17 @@ function spot() {
 
 // Grabs the URI and breaks it apart in case we have querystring stuff
 $request_uri = explode('?', $_SERVER['REQUEST_URI'], 2);
-// Route it up!
+// Route it up!.
+
+if (preg_match('@^/post/show/([a-zA-Z0-9-_]+)/?$@', $request_uri[0])):
+        return (new PostController())->ArticleShow(explode('/', $request_uri[0])[3]);
+
+
+else:
 switch ($request_uri[0]) {
     // Home page
     case '/':
         return (new IndexController())->index();
-        break;
-    case '/post/show':
-        return (new PostController())->ArticleShow($_GET['id']);
         break;
     // Blog page
     case '/blog':
@@ -100,3 +103,4 @@ switch ($request_uri[0]) {
         return (new ErrorController())->error404();
         break;
 }
+endif;

@@ -9,7 +9,7 @@ class Controller
 {
     protected $twig;
 
-    function __construct()
+     function __construct()
     {
       session_start();
       $className = substr(get_class($this), 12, -10);
@@ -20,9 +20,33 @@ class Controller
       ));
       $this->twig->addGlobal('session', $_SESSION);
       $this->twig->addExtension(new \Twig_Extensions_Extension_Text());
-
-
-      //get profile
-      //redirect
+      $this->getFlashMessage();
     }
+
+     function setFlashMessage($message, $showimmediate = true, $type = 'success') {
+      if (isset($_SESSION) && isset($_SESSION['flashmessage'])):
+        if (isset($_SESSION['flashmessage'][$type])):
+          array_push($_SESSION['flashmessage'][$type], $message);
+        else:
+          $_SESSION['flashmessage'][$type] = array($message);
+        endif;
+      elseif (isset($_SESSION)):
+        $_SESSION['flashmessage'][$type] = array($message);
+      endif;
+      if ($showimmediate) {
+        $this->getFlashMessage();
+      }
+    }
+     function getFlashMessage() {
+
+      if (isset($_SESSION) && isset($_SESSION['flashmessage'])):
+        $this->twig->addGlobal('flashmessage', $_SESSION['flashmessage']);
+        unset($_SESSION['flashmessage']);
+      endif;
+
+
+
+
+    }
+
 }

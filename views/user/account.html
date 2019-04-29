@@ -11,7 +11,7 @@
 <div class="container" style="margin-top: 100px;">
 <!-- Default form register -->
 <form class="text-center border border-light p-5" method="POST">
-    <h1>Bonjour, {{session.firstname}} {{session.name}}</h1>
+    <h1>Bonjour, {{session.user.firstname}} {{session.user.name}}</h1>
 <a href="/post/new" ><button  type="button" class="btn btn-outline-primary waves-effect">Nouveau post</button></a>
 <a href="/post/mypost"><button href="/post/mypost" type="button" class="btn btn-outline-primary waves-effect">Mes posts</button></a>
 <a href="/user/information"><button href="/post/mypost" type="button" class="btn btn-outline-primary waves-effect">Mes informations</button></a>

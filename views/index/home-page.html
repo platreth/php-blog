@@ -30,7 +30,7 @@
           <!--Grid column-->
           <div class="col-lg-4 col-md-12 mb-4">
             <!--Card-->
-          <a href="/post/show?id={{ post.id }}">
+          <a href="/post/show/{{ post.id }}">
             <div class="card">
 
               <!--Card image-->
@@ -48,7 +48,7 @@
                   {{ post.subtitle|e }}
                 </p>
                 <p class="card-text">
-                  <strong>{{ post.author|e }}</strong>
+                  <strong>{{ post.user.name|e }} {{ post.user.firstname }}</strong>
                 </p>
                 <p class="card-text">{{ post.created_date | date() }}</p>
               </div>
@@ -112,20 +112,5 @@
     </div>
   </main>
   <!--Main layout-->
-<script type="text/javascript" src="vendor/needim/noty/lib/noty.js"></script>
-  <script type="text/javascript">
-    {literal}
 
-new Noty({
-    theme: 'sunset', 
-    type: 'success',
-    layout: 'topRight',
-    text: '{{message}}',
-        animation: {
-        open: 'animated bounceInRight', // Animate.css class names
-        close: 'animated bounceOutRight' // Animate.css class names
-    }
-}).show();
-    {/literal}
-  </script>
     {% endblock %}

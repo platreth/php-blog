@@ -60,13 +60,13 @@ class PostController extends Controller
 
           $uploaddir = 'Public/img/post/';
           $uploadfile = $uploaddir . basename($_FILES['image']['name']);
-
-          if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile)):
-
-            $manager->updatePost($_POST, $post->id, $uploadfile);
-
-            header("Location: /");
+          if (is_file($uploadfile)):
+            move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile);
+          else:
+            $uploadfile = $post->image;
         endif;
+            $manager->updatePost($_POST, $post->id, $uploadfile);
+            header("Location: /post/mypost");
 
       else:
 
@@ -86,7 +86,6 @@ class PostController extends Controller
   }
 
     public function ArticleShow($id) {
-      var_dump($id);
       $manager = new PostManager();
       $post = $manager->getPost($id);
       echo $this->twig->render('index/post-page.html', array('post' => $post));
