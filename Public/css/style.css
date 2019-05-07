@@ -31,3 +31,9 @@ page-footer text-center font-small mdb-color darken-2 mt-4 wow fadeIn {
     left: 0;
     right: 0;
 }
+
+@media (min-width: 1200px) {
+  .navbar,
+  .page-footer,
+  main { 
+    margin-left: 0px !important;} }

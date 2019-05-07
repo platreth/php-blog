@@ -37,6 +37,9 @@
 
                 <p class="h6 my-4">Par {{post.user.name}} {{post.user.firstname}}, le {{ post.created_date | date('d/m/y') }}</p>
 
+                <p class="h6 my-4">Dernière modification le {{ post.modified_date | date('d/m/y', 'Europe/Paris') }} à {{ post.modified_date | date('H:i:s', 'Europe/Paris') }}</p>
+
+
               </div>
 
             </div>
@@ -56,35 +59,25 @@
 
             <!--Comments-->
             <div class="card card-comments mb-3 wow fadeIn">
-              <div class="card-header font-weight-bold">3 comments</div>
-              <div class="card-body">
+              {% set compteur = 0 %}
+              {% for comment in comments %}
+                {% set compteur = compteur + 1 %}
+              {% endfor %}
 
-                <div class="media d-block d-md-flex mt-4">
-                  <img class="d-flex mb-3 mx-auto " src="https://mdbootstrap.com/img/Photos/Avatars/img (20).jpg" alt="Generic placeholder image">
+              <div class="card-header font-weight-bold">{{ compteur }} {% if compteur > 1 %} commentaires {% else %} commentaire {% endif %}</div>
+              {% for comment in comments %}
+  <div class="card-body">
+ <div class="media d-block d-md-flex mt-3">
+                  <img class="d-flex mb-3 mx-auto " src="/{{comment.user.image}}" alt="Generic placeholder image">
                   <div class="media-body text-center text-md-left ml-md-3 ml-0">
-                    <h5 class="mt-0 font-weight-bold">Miley Steward
+                    <h5 class="mt-0 font-weight-bold">{{comment.user.name}} {{comment.user.firstname}}
                     </h5>
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                    pariatur. Excepteur sint occaecat
-                    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-                  
+                      {{comment.content}}
                   </div>
+                <p>{{comment.created_date | date('d/m/y', 'Europe/Paris')}} à {{ comment.created_date | date('H:i:s', 'Europe/Paris') }}</p>
                 </div>
-                <div class="media d-block d-md-flex mt-3">
-                  <img class="d-flex mb-3 mx-auto " src="https://mdbootstrap.com/img/Photos/Avatars/img (30).jpg" alt="Generic placeholder image">
-                  <div class="media-body text-center text-md-left ml-md-3 ml-0">
-                    <h5 class="mt-0 font-weight-bold">Caroline Horwitz
-                    </h5>
-                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-                    deleniti atque corrupti
-                    quos dolores et quas molestias excepturi sint occaecati cupiditate non provident,
-                    similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum
-                    fuga.
-                  </div>
-                </div>
-
               </div>
+{% endfor %}
             </div>
             <!--/.Comments-->
 
@@ -99,28 +92,14 @@
                   <!-- Comment -->
                   <div class="form-group">
                     <label for="replyFormComment">Votre commentaire</label>
-                    <textarea class="form-control" id="replyFormComment" rows="5"></textarea>
+                    <textarea class="form-control" name='content' id="replyFormComment" rows="5"></textarea>
                   </div>
-
-                  <!-- Name -->
-                  <label for="replyFormName">Votre nom</label>
-                  <input type="email" id="replyFormName" class="form-control">
-
-                  <br>
-
-                  <!-- Email -->
-                  <label for="replyFormEmail">Votre e-mail</label>
-                  <input type="email" id="replyFormEmail" class="form-control">
-
 
                   <div class="text-center mt-4">
                     <button class="btn btn-info btn-md" type="submit">Envoyer</button>
                   </div>
                 </form>
                 <!-- Default form reply -->
-
-
-
               </div>
             </div>
             <!--/.Reply-->

@@ -60,3 +60,14 @@ main {
 footer {
   margin-top: auto;
 }
+
+@media (min-width: 1200px) {
+  .navbar,
+  .page-footer,
+  main { 
+    padding-left: 0px !important;} }
+
+
+.image-homepage {
+  margin-left: 50%;
+}

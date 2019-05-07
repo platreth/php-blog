@@ -76,7 +76,8 @@ public function logout() {
 
 public function account() {
 
-          echo $this->twig->render('user/account.html');
+          $admin = $_SESSION['user']->admin;
+          echo $this->twig->render('user/account.html', array('admin' => $admin));
 
 }
 

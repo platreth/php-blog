@@ -4,6 +4,9 @@ namespace Controllers;
 
 use Models\Users;
 use Models\PostManager;
+
+use Models\Comment;
+use Models\CommentManager;
  
      // POST =>
         // 'id'            => ['type' => 'integer', 'primary' => true, 'autoincrement' => true],
@@ -64,7 +67,7 @@ class PostController extends Controller
   }
 
     // MODIFICATION D'UN POST
-  public function edit() {
+  public function edit($id) {
 
       $manager = new PostManager();
       $post = $manager->getPost($id);
@@ -103,13 +106,27 @@ class PostController extends Controller
   }
     // AFFICHAGE D'UN ARTICLE
     public function ArticleShow($id) {
+
       $manager = new PostManager();
       $post = $manager->getPost($id);
-      echo $this->twig->render('index/post-page.html', array('post' => $post));
 
-      if ($_SERVER['REQUEST_METHOD'] === 'POST'):
-          echo 'test';
+      $CommentManager = new CommentManager;
+      $comment = $CommentManager->getComment($id);
 
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST'):
+
+          $comment_manager = new CommentManager();
+          $comment_manager->createComment($id, $_SESSION['user']->id, $_POST['content']);
+
+          $this->setFlashMessage('Le commentaire a été envoyé, il est en attente de validation.', true, 'info');
+          echo $this->twig->render('index/post-page.html', array('post' => $post, 'comments' => $comment));      
+
+        else:
+
+          $manager = new PostManager();
+          $post = $manager->getPost($id);
+          echo $this->twig->render('index/post-page.html', array('post' => $post, 'comments' => $comment));      
 
       endif;
     }

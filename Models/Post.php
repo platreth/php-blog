@@ -12,11 +12,11 @@ class Post extends \Spot\Entity
 
     public static function fields()
     {
-        $datetime = new \DateTime('-3 days');
+        $datetime = new \DateTime();
       return [
         'id'            => ['type' => 'integer', 'primary' => true, 'autoincrement' => true],
         'author'        => ['type' => 'integer', 'required' => true],
-        'title'         => ['type' => 'string', 'required' => true, 'unique' => true],
+        'title'         => ['type' => 'string', 'required' => true],
         'image'         => ['type' => 'string', 'required' => true],
         'subtitle'      => ['type' => 'string', 'required' => true],
         'created_date'  => ['type' => 'datetime', 'required' => true, 'value' => $datetime],
