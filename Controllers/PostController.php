@@ -4,18 +4,26 @@ namespace Controllers;
 
 use Models\Users;
 use Models\PostManager;
-
+ 
+     // POST =>
+        // 'id'            => ['type' => 'integer', 'primary' => true, 'autoincrement' => true],
+        // 'author'        => ['type' => 'integer', 'required' => true],
+        // 'title'         => ['type' => 'string', 'required' => true, 'unique' => true],
+        // 'image'         => ['type' => 'string', 'required' => true],
+        // 'subtitle'      => ['type' => 'string', 'required' => true],
+        // 'created_date'  => ['type' => 'datetime', 'required' => true, 'value' => $datetime],
+        // 'modified_date' => ['type' => 'datetime', 'required' => true, 'value' => $datetime],
+        // 'content'       => ['type' => 'text', 'required' => true],
+        // 'status'       => ['type' => 'string', 'required' => true, 'value' => 'active'],
 
 class PostController extends Controller
 {
-    public function index()
-    {
-        echo "Hello User Page!";
-    }
 
-
+  // CREATION POST
  public function new()
     {
+      // Si on passe en méthode POST alors on upload l'image du post et on l'insère en BDD sinon on affiche une erreur.
+      //TODO : vérification champs formulaire
       if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 
         $uploaddir = 'Public/img/post/';
@@ -38,22 +46,25 @@ class PostController extends Controller
 
 
       else:
-
+      //Affichage du formulaire si on arrive juste sur la page. 
       echo $this->twig->render('post/new-post.html');
 
 
       endif;
     }
 
+    // AFFICHAGE DE MES POSTS
   public function mypost() {
 
+      //On récupère les posts en fonction de l'utilisateur connecté et on les passe en paramètre.
       $manager = new PostManager();
       $posts =  $manager->getMyPost();
       echo $this->twig->render('post/my-post.html', array('posts' => $posts));
 
   }
 
-  public function edit($id) {
+    // MODIFICATION D'UN POST
+  public function edit() {
 
       $manager = new PostManager();
       $post = $manager->getPost($id);
@@ -78,6 +89,7 @@ class PostController extends Controller
 
   }
 
+    // SUPPRESSION D'UN POST
   public function delete() {
 
 
@@ -89,11 +101,17 @@ class PostController extends Controller
 
 
   }
-
+    // AFFICHAGE D'UN ARTICLE
     public function ArticleShow($id) {
       $manager = new PostManager();
       $post = $manager->getPost($id);
       echo $this->twig->render('index/post-page.html', array('post' => $post));
+
+      if ($_SERVER['REQUEST_METHOD'] === 'POST'):
+          echo 'test';
+
+
+      endif;
     }
 
 }
