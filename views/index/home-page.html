@@ -3,7 +3,6 @@
 
  
 {% block content %}
-<link href="Public/css/homepage.css" rel="stylesheet" type="text/css" media="all">
 
 
            <!--Main layout-->
@@ -50,7 +49,7 @@
                 <p class="card-text">
                   <strong>{{ post.user.name|e }} {{ post.user.firstname }}</strong>
                 </p>
-                <p class="card-text">{{ post.created_date | date() }}</p>
+                <p class="card-text">{{ post.created_date | date('d/m/y') }}</p>
               </div>
 
             </div>

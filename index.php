@@ -58,7 +58,8 @@ $request_uri = explode('?', $_SERVER['REQUEST_URI'], 2);
 if (preg_match('@^/post/show/([a-zA-Z0-9-_]+)/?$@', $request_uri[0])):
         return (new PostController())->ArticleShow(explode('/', $request_uri[0])[3]);
 
-
+elseif (preg_match('@^/post/edit/([a-zA-Z0-9-_]+)/?$@', $request_uri[0])):
+  return (new PostController())->edit(explode('/', $request_uri[0])[3]);
 else:
 switch ($request_uri[0]) {
     // Home page
@@ -92,9 +93,6 @@ switch ($request_uri[0]) {
         break;
     case '/user/information':
         return (new UserController())->information();
-        break;
-    case '/post/edit':
-        return (new PostController())->edit();
         break;
     case '/post/delete':
         return (new PostController())->delete();

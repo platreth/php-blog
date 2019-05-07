@@ -44,9 +44,7 @@ class UserManager {
         $entity->image = $image;
         $entity->email = $post['email'];
         $entity->password = $post['mdp'];
-
-            $mapper->update($entity);
-
+        $mapper->update($entity);
 
   }
 

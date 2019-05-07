@@ -25,12 +25,13 @@ class PostController extends Controller
 
            $manager = new PostManager();
            $manager->insert($_POST, $uploadfile);
-
-          echo $this->twig->render('post/new-post.html', array('message' => 'ok'));
+           $this->setFlashMessage('Votre post a été crée', true, 'success');
+           echo $this->twig->render('post/new-post.html');
 
         } 
         else 
         {
+          $this->setFlashMessage('Erreur sur la création du post', true, 'error');
           echo $this->twig->render('post/new-post.html', array('message' => 'erreur'));
 
         }
@@ -52,20 +53,21 @@ class PostController extends Controller
 
   }
 
-  public function edit() {
+  public function edit($id) {
 
       $manager = new PostManager();
-      $post = $manager->getPost($_GET['id']);
+      $post = $manager->getPost($id);
       if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 
           $uploaddir = 'Public/img/post/';
           $uploadfile = $uploaddir . basename($_FILES['image']['name']);
-          if (is_file($uploadfile)):
+          if (!empty($_FILES['image']['name'])):
             move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile);
           else:
             $uploadfile = $post->image;
         endif;
             $manager->updatePost($_POST, $post->id, $uploadfile);
+            $this->setFlashMessage('Le post a bien été modifié', false, 'success');
             header("Location: /post/mypost");
 
       else:
@@ -78,9 +80,12 @@ class PostController extends Controller
 
   public function delete() {
 
+
+
      $manager = new PostManager();
       $post = $manager->deletePost($_GET['id']);
-            header("Location: /");
+      $this->setFlashMessage('Le post a bien été supprimé', false, 'success');
+      header("Location: /post/mypost");
 
 
   }
