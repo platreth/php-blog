@@ -99,6 +99,9 @@ switch ($request_uri[0]) {
     case '/post/delete':
         return (new PostController())->delete();
         break;
+    case '/reset-password':
+        return (new UserController())->reset_password();
+        break;
     default:
         return (new ErrorController())->error404();
         break;

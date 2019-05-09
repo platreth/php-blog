@@ -50,6 +50,16 @@ class UserManager {
 
   }
 
+  public function CheckEmail($post) {
+
+        $mapper = spot()->mapper('Models\Users');
+        $mapper->migrate();
+        $check = $mapper->first(['email' => $post]);
+        return $check;
+
+
+  }
+
 
 }
 

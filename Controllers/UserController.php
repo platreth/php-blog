@@ -80,6 +80,43 @@ public function account() {
 
 }
 
+public function reset_password() {
+
+
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST'):
+      $manager = new UserManager();
+      $check = $manager->CheckEmail($_POST['email']);
+      if (!$check == false):
+
+        $this->setFlashMessage('Un E-mail vous a été envoyé', true, 'info');
+        mail($_POST['email'], 'Mon Sujet', 'test');
+
+        echo $this->twig->render('user/reset-password.html');
+
+
+      else:
+
+        $this->setFlashMessage('Aucun compte n\'existe avec cette adresse mail', true, 'info');
+        echo $this->twig->render('user/reset-password.html');
+
+
+
+
+      endif;
+
+    else:
+                  echo $this->twig->render('user/reset-password.html');
+
+
+
+
+
+    endif;
+
+
+}
+
 public function information() {
 
           $manager = new UserManager();
