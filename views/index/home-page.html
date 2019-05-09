@@ -3,11 +3,52 @@
 
  
 {% block content %}
-<link href="Public/css/homepage.css" rel="stylesheet" type="text/css" media="all">
+<!--Main layout-->
+  <main class="mt-5 pt-5">
+    <div class="container">
 
+      <!--Section: Main info-->
+      <section class="mt-5 wow fadeIn">
 
-           <!--Main layout-->
-  <main class="mt-5 pt-5" style="padding-left: 0 !important;">
+        <!--Grid row-->
+        <div class="row">
+
+          <!--Grid column-->
+          <div class="col-md-6 mb-4">
+
+            <img src="https://media.licdn.com/dms/image/C5603AQE2vGvmvlAqDg/profile-displayphoto-shrink_200_200/0?e=1562803200&v=beta&t=rI3O1Z1q0RugYYYKMe6V3g976XhFTp5CwnvOEkPNTD4" class="img-fluid z-depth-1-half image-homepage" alt="">
+
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-md-6 mb-4">
+            <hr>
+
+            <!-- Main heading -->
+            <h3 class="h3 mb-3">Développeur Backend Junior</h3>
+            <!-- Main heading -->
+
+            <hr>
+
+            <!-- CTA -->
+            <a target="_blank" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" class="btn btn-grey btn-md">Télécharger le CV
+              <i class="fas fa-download ml-1"></i>
+            </a>
+
+          </div>
+          <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+
+      </section>
+      <!--Section: Main info-->
+
+      <hr class="my-5">
+
+    </div>
+
     <div class="container">
 
 
@@ -50,7 +91,7 @@
                 <p class="card-text">
                   <strong>{{ post.user.name }} {{ post.user.firstname }}</strong>
                 </p>
-                <p class="card-text">{{ post.created_date | date() }}</p>
+                <p class="card-text">{{ post.created_date | date('d/m/y') }}</p>
               </div>
 
             </div>

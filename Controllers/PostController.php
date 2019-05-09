@@ -4,6 +4,9 @@ namespace Controllers;
 
 use Models\Users;
 use Models\PostManager;
+
+use Models\Comment;
+use Models\CommentManager;
  
      // POST =>
         // 'id'            => ['type' => 'integer', 'primary' => true, 'autoincrement' => true],
@@ -33,12 +36,13 @@ class PostController extends Controller
 
            $manager = new PostManager();
            $manager->insert($_POST, $uploadfile);
-
-          echo $this->twig->render('post/new-post.html', array('message' => 'ok'));
+           $this->setFlashMessage('Votre post a été crée', true, 'success');
+           echo $this->twig->render('post/new-post.html');
 
         } 
         else 
         {
+          $this->setFlashMessage('Erreur sur la création du post', true, 'error');
           echo $this->twig->render('post/new-post.html', array('message' => 'erreur'));
 
         }
@@ -61,21 +65,23 @@ class PostController extends Controller
       echo $this->twig->render('post/my-post.html', array('posts' => $posts));
 
   }
+
     // MODIFICATION D'UN POST
-  public function edit() {
+  public function edit($id) {
 
       $manager = new PostManager();
-      $post = $manager->getPost($_GET['id']);
+      $post = $manager->getPost($id);
       if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 
           $uploaddir = 'Public/img/post/';
           $uploadfile = $uploaddir . basename($_FILES['image']['name']);
-          if (is_file($uploadfile)):
+          if (!empty($_FILES['image']['name'])):
             move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile);
           else:
             $uploadfile = $post->image;
         endif;
             $manager->updatePost($_POST, $post->id, $uploadfile);
+            $this->setFlashMessage('Le post a bien été modifié', false, 'success');
             header("Location: /post/mypost");
 
       else:
@@ -89,21 +95,38 @@ class PostController extends Controller
     // SUPPRESSION D'UN POST
   public function delete() {
 
+
+
      $manager = new PostManager();
       $post = $manager->deletePost($_GET['id']);
-            header("Location: /");
+      $this->setFlashMessage('Le post a bien été supprimé', false, 'success');
+      header("Location: /post/mypost");
 
 
   }
     // AFFICHAGE D'UN ARTICLE
     public function ArticleShow($id) {
+
       $manager = new PostManager();
       $post = $manager->getPost($id);
-      echo $this->twig->render('index/post-page.html', array('post' => $post));
 
-      if ($_SERVER['REQUEST_METHOD'] === 'POST'):
-          echo 'test';
+      $CommentManager = new CommentManager;
+      $comment = $CommentManager->getComment($id);
 
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST'):
+
+          $comment_manager = new CommentManager();
+          $comment_manager->createComment($id, $_SESSION['user']->id, $_POST['content']);
+
+          $this->setFlashMessage('Le commentaire a été envoyé, il est en attente de validation.', true, 'info');
+          echo $this->twig->render('index/post-page.html', array('post' => $post, 'comments' => $comment));      
+
+        else:
+
+          $manager = new PostManager();
+          $post = $manager->getPost($id);
+          echo $this->twig->render('index/post-page.html', array('post' => $post, 'comments' => $comment));      
 
       endif;
     }

@@ -58,8 +58,16 @@ $request_uri = explode('?', $_SERVER['REQUEST_URI'], 2);
 if (preg_match('@^/post/show/([a-zA-Z0-9-_]+)/?$@', $request_uri[0])):
         return (new PostController())->ArticleShow(explode('/', $request_uri[0])[3]);
 
+elseif (preg_match('@^/post/edit/([a-zA-Z0-9-_]+)/?$@', $request_uri[0])):
+  return (new PostController())->edit(explode('/', $request_uri[0])[3]);
 
+elseif (preg_match('@^/admin/comment/approve/([a-zA-Z0-9-_]+)/?$@', $request_uri[0])):
+  return (new AdminController())->approve(explode('/', $request_uri[0])[4]);
+
+elseif (preg_match('@^/admin/comment/delete/([a-zA-Z0-9-_]+)/?$@', $request_uri[0])):
+  return (new AdminController())->delete(explode('/', $request_uri[0])[4]);
 else:
+
 switch ($request_uri[0]) {
     // Home page
     case '/':
@@ -93,14 +101,16 @@ switch ($request_uri[0]) {
     case '/user/information':
         return (new UserController())->information();
         break;
-    case '/post/edit':
-        return (new PostController())->edit();
-        break;
     case '/post/delete':
         return (new PostController())->delete();
         break;
     case '/reset-password':
         return (new UserController())->reset_password();
+    case '/admin/comment':
+        return (new AdminController())->comment();
+        break;
+    case '/admin/user':
+        return (new AdminController())->user();
         break;
     default:
         return (new ErrorController())->error404();

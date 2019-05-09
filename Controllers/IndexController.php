@@ -5,6 +5,9 @@ namespace Controllers;
 use Models\Post;
 use Models\PostManager;
 
+use Models\Comment;
+use Models\CommentManager;
+
 class IndexController extends Controller
 {
     public function index()
@@ -15,6 +18,9 @@ class IndexController extends Controller
     }
         public function blog() {
 
-         echo $this->twig->render('index/category-page.html');
+        $manager = new PostManager();
+        $posts =  $manager->getAllPost();
+         echo $this->twig->render('index/category-page.html', array('posts' => $posts));
+
     }
 }

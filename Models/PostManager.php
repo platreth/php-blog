@@ -32,7 +32,15 @@ class PostManager {
         $mapper->migrate();
         $check = $mapper->where(['status' => 'active'])
             ->order(['created_date' => 'DESC'])
-            ->limit(6);
+            ->limit(3);
+        return $check;
+  }
+
+    public function getAllPost() {
+        $mapper = spot()->mapper('Models\Post');
+        $mapper->migrate();
+        $check = $mapper->where(['status' => 'active'])
+            ->order(['created_date' => 'DESC']);
         return $check;
   }
 
@@ -50,6 +58,7 @@ class PostManager {
     $entity->subtitle = $post['subtitle'];
     $entity->content = $post['content'];
     $entity->image = $image;
+    $entity->modified_date = new \DateTime();
     $mapper->update($entity);
 
   }

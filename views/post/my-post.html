@@ -40,7 +40,7 @@
                 <p class="card-text">
                   <strong>{{ post.subtitle|e }}</strong>
                 </p>
-                <a href="/post/edit?id={{ post.id }}">Modifier</a>
+                <a href="/post/edit/{{ post.id }}">Modifier</a>
                 <span>|</span>
                 <a href="/post/delete?id={{ post.id }}">Supprimer</a>
               </div>
@@ -58,12 +58,6 @@
 {% else %}
 </div>
 
-<script type="text/javascript">
-    new Noty({
-    text: "{{message}}",
-
-}).show();
-</script>
 {% endif %}
 
 {% endblock %}
