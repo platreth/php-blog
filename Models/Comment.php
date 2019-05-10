@@ -6,9 +6,9 @@ use \Spot\MapperInterface as Mapper;
 use Models\Users;
 
 
-class Post extends \Spot\Entity 
+class Comment extends \Spot\Entity 
 {
-    protected static $table = 'post';
+    protected static $table = 'comment';
 
     public static function fields()
     {
@@ -16,20 +16,18 @@ class Post extends \Spot\Entity
       return [
         'id'            => ['type' => 'integer', 'primary' => true, 'autoincrement' => true],
         'author'        => ['type' => 'integer', 'required' => true],
-        'title'         => ['type' => 'string', 'required' => true],
-        'image'         => ['type' => 'string', 'required' => true],
-        'subtitle'      => ['type' => 'string', 'required' => true],
+        'id_post'       => ['type' => 'integer', 'required' => true],
         'created_date'  => ['type' => 'datetime', 'required' => true, 'value' => $datetime],
-        'modified_date' => ['type' => 'datetime', 'required' => true, 'value' => $datetime],
         'content'       => ['type' => 'text', 'required' => true],
-        'status'       => ['type' => 'string', 'required' => true, 'value' => 'active'],
-
+        'status'       => ['type' => 'string', 'required' => true, 'value' => '0'],
       ];
     }
     public static function relations(Mapper $mapper, Entity $entity)
     {
         return [
-            'user' => $mapper->belongsTo($entity, 'Models\Users', 'author')
+            'user' => $mapper->belongsTo($entity, 'Models\Users', 'author'),
+            'post' => $mapper->belongsTo($entity, 'Models\Post', 'id_post')
+
         ];
     }
 }

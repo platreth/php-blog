@@ -44,8 +44,16 @@ class UserManager {
         $entity->image = $image;
         $entity->email = $post['email'];
         $entity->password = $post['mdp'];
+        $mapper->update($entity);
 
-            $mapper->update($entity);
+  }
+
+  public function CheckEmail($post) {
+
+        $mapper = spot()->mapper('Models\Users');
+        $mapper->migrate();
+        $check = $mapper->first(['email' => $post]);
+        return $check;
 
 
   }

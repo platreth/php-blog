@@ -5,21 +5,22 @@ namespace Controllers;
 use Models\Post;
 use Models\PostManager;
 
+use Models\Comment;
+use Models\CommentManager;
+
 class IndexController extends Controller
 {
     public function index()
     {
         $manager = new PostManager();
         $posts =  $manager->getLastPost();
-        echo $this->twig->render('index/home-page.html', array('posts' => $posts));
-    }
-
-    public function ArticleShow($id) {
-    	var_dump($id);
-    	echo $this->twig->render('index/post-page.html');
+        echo $this->twig->render('index/home-page.html', array('posts' => $posts, 'message' => "test"));
     }
         public function blog() {
 
-         echo $this->twig->render('index/category-page.html');
+        $manager = new PostManager();
+        $posts =  $manager->getAllPost();
+         echo $this->twig->render('index/category-page.html', array('posts' => $posts));
+
     }
 }
