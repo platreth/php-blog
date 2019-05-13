@@ -4,6 +4,8 @@ namespace Controllers;
 
 use Models\Users;
 use Models\UserManager;
+use Models\MailManager;
+
 
 
 class UserController extends Controller
@@ -91,8 +93,9 @@ public function reset_password() {
       if (!$check == false):
 
         $this->setFlashMessage('Un E-mail vous a été envoyé', true, 'info');
-        mail($_POST['email'], 'Mon Sujet', 'test');
-
+        $manager_mail = new MailManager();
+        $uniqid = uniqid();
+        $manager_mail->sendMail($_POST['email'], 'Demande de renouvellement de mot de passe','Cliquez sur ce lien pour modifier votre mot de passe </br><a href="' . $_SERVER['SERVER_NAME'] . '/reset-password/' . $uniqid . '"</a> ' . $_SERVER['SERVER_NAME'] . '/reset-password/' . $uniqid . '');
         echo $this->twig->render('user/reset-password.html');
 
 
