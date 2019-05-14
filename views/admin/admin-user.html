@@ -4,9 +4,29 @@
 
 
 {% block content %}
-
-
-
-
+<div class="container" style="margin-top: 100px;">
+<!-- Default form register -->
+<form class="text-center border border-light p-5" method="POST">
+  <h1>Tous les utilisateurs</h1>
+              <div class="card card-comments mb-3 wow fadeIn">
+{% for user in users %}
+  <div class="card-body">
+ <div class="media d-block d-md-flex mt-3">
+                  <img class="d-flex mb-3 mx-auto " src="/{{user.image}}" alt="Generic placeholder image">
+                  <div class="media-body text-center text-md-left ml-md-3 ml-0">
+                    <h5 class="mt-0 font-weight-bold">{{user.name}} | {{user.firstname}} | 
+                      {{user.email}} | {% if user.admin == 1 %} Admin {% else %} Utilisateur {% endif %}
+                    </h5>
+                  </div>
+                </div>
+                {% if user.admin == 1 %}
+                {% else %}
+                 <a href='/admin/user/grant/{{user.id}}'>Promouvoir admin</a>
+                {% endif %}
+              </div>
+{% endfor %}
+            </div>
+              </form>
+          </div>
 {% endblock %}
 

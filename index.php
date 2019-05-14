@@ -66,6 +66,9 @@ elseif (preg_match('@^/admin/comment/approve/([a-zA-Z0-9-_]+)/?$@', $request_uri
 
 elseif (preg_match('@^/admin/comment/delete/([a-zA-Z0-9-_]+)/?$@', $request_uri[0])):
   return (new AdminController())->delete(explode('/', $request_uri[0])[4]);
+
+elseif (preg_match('@^/admin/user/grant/([a-zA-Z0-9-_]+)/?$@', $request_uri[0])):
+  return (new AdminController())->grantUser(explode('/', $request_uri[0])[4]);
 else:
 
 switch ($request_uri[0]) {
