@@ -95,7 +95,17 @@ public function reset_password() {
         $this->setFlashMessage('Un E-mail vous a été envoyé', true, 'info');
         $manager_mail = new MailManager();
         $uniqid = uniqid();
-        $manager_mail->sendMail($_POST['email'], 'Demande de renouvellement de mot de passe','Cliquez sur ce lien pour modifier votre mot de passe </br><a href="' . $_SERVER['SERVER_NAME'] . '/reset-password/' . $uniqid . '"</a> ' . $_SERVER['SERVER_NAME'] . '/reset-password/' . $uniqid . '');
+        $manager_mail->sendMail(
+
+          $_POST['email'], 
+
+          'Demande de renouvellement de mot de passe',
+
+          'Cliquez sur ce lien pour modifier votre mot de passe </br><a href="' . $_SERVER['SERVER_NAME'] . '/reset-password/reset?token=' . $uniqid . '&mail='.$_POST['email'].'"</a> ' . $_SERVER['SERVER_NAME'] . '/reset-password/reset?token=' . $uniqid . ''
+        );
+
+        $manager->InsertToken($_POST['email'], $uniqid);
+
         echo $this->twig->render('user/reset-password.html');
 
 
@@ -110,14 +120,49 @@ public function reset_password() {
       endif;
 
     else:
-                  echo $this->twig->render('user/reset-password.html');
-
-
-
-
+         echo $this->twig->render('user/reset-password.html');
 
     endif;
 
+
+}
+
+
+public function reset_password_reset($token, $mail) {
+
+  $manager = new UserManager();
+  $check = $manager->checkToken($token, $mail);
+
+        if (!$check == false):
+
+                  if ($_SERVER['REQUEST_METHOD'] === 'POST'):
+                    if (strlen($_POST["password"]) >= '8'):
+                      $manager->updatePassword($_POST['password'], $mail);
+                      
+                      $this->setFlashMessage('Votre mot de passe a été modifié', true, 'success');
+                      echo $this->twig->render('user/login.html');
+
+                  else:
+                      $this->setFlashMessage('Le mot de passe doit contenir au moins 8 caractères', true, 'success');
+                      echo $this->twig->render('user/reset-password-reset.html');
+                    endif;
+                  else:
+
+          $this->setFlashMessage('Vous pouvez modifier votre mot de passe !', true, 'info');
+          echo $this->twig->render('user/reset-password-reset.html');
+
+                  endif;
+
+
+
+
+        else:
+
+          $this->setFlashMessage('Erreur', true, 'warning');
+          echo $this->twig->render('user/login.html');
+        endif;
+
+  die;
 
 }
 

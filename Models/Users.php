@@ -18,7 +18,8 @@ class Users extends \Spot\Entity
         'image'     => ['type' => 'string', 'required' => true, 'value' => 'Public/img/user/user-profile.png'],
         'email'     => ['type' => 'string', 'required' => true],
         'password'  => ['type' => 'string', 'required' => true],
-        'admin'     => ['type' => 'string', 'default' => false]
+        'admin'     => ['type' => 'string', 'default' => false],
+        'token'     => ['type' => 'string']
       ];
     }
 }

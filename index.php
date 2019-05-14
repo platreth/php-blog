@@ -106,6 +106,10 @@ switch ($request_uri[0]) {
         break;
     case '/reset-password':
         return (new UserController())->reset_password();
+        break;
+    case '/reset-password/reset':
+        return (new UserController())->reset_password_reset($_GET['token'], $_GET['mail']);
+        break;
     case '/admin/comment':
         return (new AdminController())->comment();
         break;
