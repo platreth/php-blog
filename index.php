@@ -55,18 +55,22 @@ function spot() {
 $request_uri = explode('?', $_SERVER['REQUEST_URI'], 2);
 // Route it up!.
 
-if (preg_match('@^/post/show/([a-zA-Z0-9-_]+)/?$@', $request_uri[0])):
+if (preg_match('@^/post/show/([0-9-_]+)/?$@', $request_uri[0])):
         return (new PostController())->ArticleShow(explode('/', $request_uri[0])[3]);
 
-elseif (preg_match('@^/post/edit/([a-zA-Z0-9-_]+)/?$@', $request_uri[0])):
+elseif (preg_match('@^/post/edit/([0-9-_]+)/?$@', $request_uri[0])):
   return (new PostController())->edit(explode('/', $request_uri[0])[3]);
 
-elseif (preg_match('@^/admin/comment/approve/([a-zA-Z0-9-_]+)/?$@', $request_uri[0])):
+elseif (preg_match('@^/admin/comment/approve/([0-9-_]+)/?$@', $request_uri[0])):
   return (new AdminController())->approve(explode('/', $request_uri[0])[4]);
 
-elseif (preg_match('@^/admin/comment/delete/([a-zA-Z0-9-_]+)/?$@', $request_uri[0])):
+elseif (preg_match('@^/admin/comment/delete/([0-9-_]+)/?$@', $request_uri[0])):
   return (new AdminController())->delete(explode('/', $request_uri[0])[4]);
+
+elseif (preg_match('@^/post/comment/add/([0-9-_]+)/?$@', $request_uri[0])):
+  return (new PostController())->addComment(explode('/', $request_uri[0])[4]);
 else:
+
 
 switch ($request_uri[0]) {
     // Home page

@@ -39,7 +39,7 @@
         <!-- Brand -->
                     {% if session.user %}
 
-           <img style="height: 30px; width: 30px; margin-right: 10px; margin-left: 20px;" class="embed-responsive-item" src="/{{ session.user.image|e }}" ></img>
+           <img style="height: 30px; width: 30px; margin-right: 10px; margin-left: 20px;" class="embed-responsive-item" src="/{{ session.user.image }}" ></img>
                        {% endif %} 
 
         <a class="navbar-brand waves-effect" href="/">
@@ -176,8 +176,6 @@
             close: 'animated bounceOutRight' // Animate.css class names
         }
     }).show();
-       console.log('{{type}}');
-      console.log('{{message}}');
       {%endfor%}
     {%endfor%}
 
