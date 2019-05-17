@@ -4,6 +4,8 @@ namespace Controllers;
 
 use Models\Users;
 use Models\PostManager;
+use Models\UserManager;
+
 
 use Models\Comment;
 use Models\CommentManager;
@@ -34,7 +36,9 @@ class AdminController extends Controller
     public function user() {
 
     		$this->checkAdmin();
-    		echo $this->twig->render('admin/admin-user.html');
+    		$manager = new UserManager();
+    		$users = $manager->getAllUsers();
+    		echo $this->twig->render('admin/admin-user.html', array('users' => $users));
     	
     }
 
@@ -56,5 +60,14 @@ class AdminController extends Controller
     	    $this->setFlashMessage('Commentaire supprimé', false, 'success');
 			header("Location: /admin/comment");
 
+    }
+
+    public function grantUser($id) {
+
+    		$this->checkAdmin();
+    		$manager = new UserManager();
+    		$manager->grant($id);
+    		 $this->setFlashMessage('L\'utilisateur est maintenant admin !', false, 'success');
+			header("Location: /admin/user");
     }
 }

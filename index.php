@@ -69,6 +69,8 @@ elseif (preg_match('@^/admin/comment/delete/([0-9-_]+)/?$@', $request_uri[0])):
 
 elseif (preg_match('@^/post/comment/add/([0-9-_]+)/?$@', $request_uri[0])):
   return (new PostController())->addComment(explode('/', $request_uri[0])[4]);
+elseif (preg_match('@^/admin/user/grant/([a-zA-Z0-9-_]+)/?$@', $request_uri[0])):
+  return (new AdminController())->grantUser(explode('/', $request_uri[0])[4]);
 else:
 
 
@@ -110,6 +112,10 @@ switch ($request_uri[0]) {
         break;
     case '/reset-password':
         return (new UserController())->reset_password();
+        break;
+    case '/reset-password/reset':
+        return (new UserController())->reset_password_reset($_GET['token'], $_GET['mail']);
+        break;
     case '/admin/comment':
         return (new AdminController())->comment();
         break;
