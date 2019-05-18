@@ -6,7 +6,6 @@ $('#send_comment').click(function() {
 		message : comment,
 		id : postid
 	}).done(function(data){
-		console.log(data);
 		var data = JSON.parse(data);
 		if (data.code == 200) {
 
@@ -20,8 +19,8 @@ $('#send_comment').click(function() {
 		    layout: 'topRight',
 		    text: data.message,
 		        animation: {
-		        open: 'animated bounceInRight', // Animate.css class names
-		        close: 'animated bounceOutRight' // Animate.css class names
+		        open: 'animated bounceInRight', 
+		        close: 'animated bounceOutRight' 
 		    }
 		}).show();
 

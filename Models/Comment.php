@@ -1,19 +1,19 @@
 <?php
 
 namespace Models;
+
 use \Spot\EntityInterface as Entity;
 use \Spot\MapperInterface as Mapper;
 use Models\Users;
 
-
-class Comment extends \Spot\Entity 
+class Comment extends \Spot\Entity
 {
     protected static $table = 'comment';
 
     public static function fields()
     {
         $datetime = new \DateTime();
-      return [
+        return [
         'id'            => ['type' => 'integer', 'primary' => true, 'autoincrement' => true],
         'author'        => ['type' => 'integer', 'required' => true],
         'id_post'       => ['type' => 'integer', 'required' => true],
