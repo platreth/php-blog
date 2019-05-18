@@ -14,12 +14,12 @@ class IndexController extends Controller
     {
         $manager = new PostManager();
         $posts =  $manager->getLastPost();
-        echo $this->twig->render('index/home-page.html', array('posts' => $posts, 'message' => "test"));
+        $this->render('index/home-page.html', array('posts' => $posts, 'message' => "test"));
     }
     public function blog()
     {
         $manager = new PostManager();
         $posts =  $manager->getAllPost();
-        echo $this->twig->render('index/category-page.html', array('posts' => $posts));
+        $this->render('index/category-page.html', array('posts' => $posts));
     }
 }

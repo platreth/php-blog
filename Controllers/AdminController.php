@@ -14,7 +14,8 @@ class AdminController extends Controller
 {
     public function checkAdmin()
     {
-        if ($_SESSION['user']->admin != 1) {
+        $user = $this->getSession('user');
+        if ($user->admin != 1) {
             $this->setFlashMessage('L\'accès à cette page n\'est pas autorisé', false, 'warning');
             header("Location: /");
         }
@@ -26,7 +27,7 @@ class AdminController extends Controller
         $manager = new CommentManager();
         $comments = $manager->getWaitingValidationComment();
 
-        echo $this->twig->render('admin/admin-comment.html', array('comments' => $comments));
+        $this->render('admin/admin-comment.html', array('comments' => $comments));
     }
 
     public function user()
@@ -34,7 +35,7 @@ class AdminController extends Controller
         $this->checkAdmin();
         $manager = new UserManager();
         $users = $manager->getAllUsers();
-        echo $this->twig->render('admin/admin-user.html', array('users' => $users));
+        $this->render('admin/admin-user.html', array('users' => $users));
     }
 
     public function approve($id)

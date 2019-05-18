@@ -20,6 +20,7 @@ class Controller
             'cache' => false,
             )
         );
+
         // Ajout du tableau de session en globale pour TWIG
         $this->twig->addGlobal('session', $_SESSION);
         // Extension twig pour couper un texte et faire une preview
@@ -51,6 +52,18 @@ class Controller
             $this->twig->addGlobal('flashmessage', $_SESSION['flashmessage']);
             unset($_SESSION['flashmessage']);
         endif;
+    }
+
+    public function render($path, $var = array()) {
+
+      echo $this->twig->render($path,  $var);
+
+    }
+
+    public function getSession($key) {
+
+      return $_SESSION[$key];
+
     }
 }
 

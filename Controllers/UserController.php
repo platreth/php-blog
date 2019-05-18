@@ -21,12 +21,12 @@ class UserController extends Controller
                     $this->setFlashMessage('Votre compte a été crée avec succès', false, 'success');
                     header("Location: /login"); else:
                           $this->setFlashMessage('Le mot de passe doit contenir au moins 8 caractères', true, 'error');
-                            echo $this->twig->render('user/register.html');
+                            $this->render('user/register.html');
                     endif; else:
                         $this->setFlashMessage('Adresse E-mail non comforme', true, 'warning');
-                        echo $this->twig->render('user/register.html');
+                        $this->render('user/register.html');
                     endif; else:
-                        echo $this->twig->render('user/register.html');
+                        $this->render('user/register.html');
                     endif;
     }
 
@@ -38,14 +38,14 @@ class UserController extends Controller
             $check = $manager->check($_POST);
             if (!$check == false) :
 
-                $_SESSION['user'] = $check;
+                $this->getSession('user') = $check;
                 $this->setFlashMessage('Vous êtes connecté', false, 'success');
                 header("Location: /account"); else:
                     $this->setFlashMessage('Erreur sur le mot de passe ou l\'email.', true, 'error');
-                    echo $this->twig->render('user/login.html');
+                    $this->render('user/login.html');
                 endif; else:
 
-                    echo $this->twig->render('user/login.html');
+                    $this->render('user/login.html');
 
                 endif;
     }
@@ -62,8 +62,8 @@ class UserController extends Controller
 
     public function account()
     {
-        $admin = $_SESSION['user']->admin;
-        echo $this->twig->render('user/account.html', array('admin' => $admin));
+        $admin = $this->getSession('user')->admin;
+        $this->render('user/account.html', array('admin' => $admin));
     }
 
     public function reset_password()
@@ -84,16 +84,16 @@ class UserController extends Controller
 
                 $manager->InsertToken($_POST['email'], $uniqid);
 
-                echo $this->twig->render('user/reset-password.html'); else:
+                $this->render('user/reset-password.html'); else:
 
                     $this->setFlashMessage('Aucun compte n\'existe avec cette adresse mail', true, 'info');
-                    echo $this->twig->render('user/reset-password.html');
+                    $this->render('user/reset-password.html');
 
 
 
 
                 endif; else:
-                    echo $this->twig->render('user/reset-password.html');
+                    $this->render('user/reset-password.html');
 
                 endif;
     }
@@ -111,18 +111,18 @@ class UserController extends Controller
                       $manager->updatePassword($_POST['password'], $mail);
                       
                     $this->setFlashMessage('Votre mot de passe a été modifié', true, 'success');
-                    echo $this->twig->render('user/login.html'); else:
+                    $this->render('user/login.html'); else:
                               $this->setFlashMessage('Le mot de passe doit contenir au moins 8 caractères', true, 'success');
-                          echo $this->twig->render('user/reset-password-reset.html');
+                          $this->render('user/reset-password-reset.html');
                     endif; else:
 
                         $this->setFlashMessage('Vous pouvez modifier votre mot de passe !', true, 'info');
-                        echo $this->twig->render('user/reset-password-reset.html');
+                        $this->render('user/reset-password-reset.html');
 
                     endif; else:
 
                         $this->setFlashMessage('Erreur', true, 'warning');
-                        echo $this->twig->render('user/login.html');
+                        $this->render('user/login.html');
                     endif;
 
                     die;
@@ -131,7 +131,7 @@ class UserController extends Controller
     public function information()
     {
         $manager = new UserManager();
-        $user = $manager->information($_SESSION['user']->id);
+        $user = $manager->information($this->getSession('user')->id);
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') :
 
@@ -142,17 +142,17 @@ class UserController extends Controller
             $uploadfile = $uploaddir . basename($_FILES['image']['name']);
             if (!empty($_FILES['image']['name'])) :
                 move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile); else:
-                    $uploadfile = $_SESSION['user']->image;
+                    $uploadfile = $this->getSession('user')->image;
                 endif;
 
-                $manager->updateInformation($_POST, $uploadfile, $_SESSION['user']->id);
-                $_SESSION['user']->image = $uploadfile;
-                $_SESSION['user']->name = $_POST['nom'];
-                $_SESSION['user']->firstname = $_POST['prenom'];
+                $manager->updateInformation($_POST, $uploadfile, $this->getSession('user')->id);
+                $this->getSession('user')->image = $uploadfile;
+                $this->getSession('user')->name = $_POST['nom'];
+                $this->getSession('user')->firstname = $_POST['prenom'];
 
                 header("Location: /account"); else:
 
-                    echo $this->twig->render('user/information.html', array('user' => $user));
+                    $this->render('user/information.html', array('user' => $user));
 
                 endif;
     }
