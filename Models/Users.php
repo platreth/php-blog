@@ -1,6 +1,7 @@
 <?php
 
 namespace Models;
+
 use \Spot\EntityInterface as Entity;
 use \Spot\MapperInterface as Mapper;
 
@@ -11,7 +12,7 @@ class Users extends \Spot\Entity
 
     public static function fields()
     {
-      return [
+        return [
         'id'        => ['type' => 'integer', 'primary' => true, 'autoincrement' => true],
         'name'      => ['type' => 'string', 'required' => true, 'unique' => true],
         'firstname' => ['type' => 'string', 'required' => true],

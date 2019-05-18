@@ -7,8 +7,8 @@ use Models\PostManager;
 
 use Models\Comment;
 use Models\CommentManager;
- 
-     // POST =>
+
+// POST =>
         // 'id'            => ['type' => 'integer', 'primary' => true, 'autoincrement' => true],
         // 'author'        => ['type' => 'integer', 'required' => true],
         // 'title'         => ['type' => 'string', 'required' => true, 'unique' => true],
@@ -23,115 +23,96 @@ class PostController extends Controller
 {
 
   // CREATION POST
- public function new()
+    public function new()
     {
-      // Si on passe en méthode POST alors on upload l'image du post et on l'insère en BDD sinon on affiche une erreur.
-      //TODO : vérification champs formulaire
-      if ($_SERVER['REQUEST_METHOD'] === 'POST'):
+        // Si on passe en méthode POST alors on upload l'image du post et on l'insère en BDD sinon on affiche une erreur.
+        //TODO : vérification champs formulaire
+        if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 
         $uploaddir = 'Public/img/post/';
         $uploadfile = $uploaddir . basename($_FILES['image']['name']);
 
         if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile)) {
-
-           $manager = new PostManager();
-           $manager->insert($_POST, $uploadfile);
-           $this->setFlashMessage('Votre post a été crée', true, 'success');
-           echo $this->twig->render('post/new-post.html');
-
-        } 
-        else 
-        {
-          $this->setFlashMessage('Erreur sur la création du post', true, 'error');
-          echo $this->twig->render('post/new-post.html', array('message' => 'erreur'));
-
-        }
-
-
-      else:
-      //Affichage du formulaire si on arrive juste sur la page. 
+            $manager = new PostManager();
+            $manager->insert($_POST, $uploadfile);
+            $this->setFlashMessage('Votre post a été crée', true, 'success');
+            echo $this->twig->render('post/new-post.html');
+        } else {
+            $this->setFlashMessage('Erreur sur la création du post', true, 'error');
+            echo $this->twig->render('post/new-post.html', array('message' => 'erreur'));
+        } else:
+      //Affichage du formulaire si on arrive juste sur la page.
       echo $this->twig->render('post/new-post.html');
 
 
-      endif;
+        endif;
     }
 
     // AFFICHAGE DE MES POSTS
-  public function mypost() {
+    public function mypost()
+    {
 
       //On récupère les posts en fonction de l'utilisateur connecté et on les passe en paramètre.
-      $manager = new PostManager();
-      $posts =  $manager->getMyPost();
-      echo $this->twig->render('post/my-post.html', array('posts' => $posts));
-
-  }
+        $manager = new PostManager();
+        $posts =  $manager->getMyPost();
+        echo $this->twig->render('post/my-post.html', array('posts' => $posts));
+    }
 
     // MODIFICATION D'UN POST
-  public function edit($id) {
-
-      $manager = new PostManager();
-      $post = $manager->getPost($id);
-      if ($_SERVER['REQUEST_METHOD'] === 'POST'):
+    public function edit($id)
+    {
+        $manager = new PostManager();
+        $post = $manager->getPost($id);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 
           $uploaddir = 'Public/img/post/';
-          $uploadfile = $uploaddir . basename($_FILES['image']['name']);
-          if (!empty($_FILES['image']['name'])):
-            move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile);
-          else:
+        $uploadfile = $uploaddir . basename($_FILES['image']['name']);
+        if (!empty($_FILES['image']['name'])):
+            move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile); else:
             $uploadfile = $post->image;
         endif;
-            $manager->updatePost($_POST, $post->id, $uploadfile);
-            $this->setFlashMessage('Le post a bien été modifié', false, 'success');
-            header("Location: /post/mypost");
-
-      else:
+        $manager->updatePost($_POST, $post->id, $uploadfile);
+        $this->setFlashMessage('Le post a bien été modifié', false, 'success');
+        header("Location: /post/mypost"); else:
 
         echo $this->twig->render('post/edit-post.html', array('post' => $post));
 
-      endif;
-
-  }
+        endif;
+    }
 
     // SUPPRESSION D'UN POST
-  public function delete() {
-
-
-
-     $manager = new PostManager();
-      $post = $manager->deletePost($_GET['id']);
-      $this->setFlashMessage('Le post a bien été supprimé', false, 'success');
-      header("Location: /post/mypost");
-
-
-  }
+    public function delete()
+    {
+        $manager = new PostManager();
+        $post = $manager->deletePost($_GET['id']);
+        $this->setFlashMessage('Le post a bien été supprimé', false, 'success');
+        header("Location: /post/mypost");
+    }
     // AFFICHAGE D'UN ARTICLE
-    public function ArticleShow($id) {
+    public function ArticleShow($id)
+    {
+        $manager = new PostManager();
+        $post = $manager->getPost($id);
 
-      $manager = new PostManager();
-      $post = $manager->getPost($id);
+        $CommentManager = new CommentManager;
+        $comment = $CommentManager->getComment($id);
 
-      $CommentManager = new CommentManager;
-      $comment = $CommentManager->getComment($id);
-
-      $manager = new PostManager();
-      $post = $manager->getPost($id);
-      echo $this->twig->render('index/post-page.html', array('post' => $post, 'comments' => $comment));      
-
+        $manager = new PostManager();
+        $post = $manager->getPost($id);
+        echo $this->twig->render('index/post-page.html', array('post' => $post, 'comments' => $comment));
     }
 
-    public function addComment($id) {
+    public function addComment($id)
+    {
+        $comment_manager = new CommentManager();
+        $comment_manager->createComment($id, $_SESSION['user']->id, $_POST['message']);
 
-          $comment_manager = new CommentManager();
-          $comment_manager->createComment($id, $_SESSION['user']->id, $_POST['message']);
+        //VERIFICATIONS
+        $return = array();
 
-            //VERIFICATIONS
-          $return = array();
-
-          $return['type'] = 'info';
-          $return['code'] = 200;
-          $return['message'] = 'Le commentaire a été envoyé, il est en attente de validation.';
-          echo json_encode($return);     
-
+        $return['type'] = 'info';
+        $return['code'] = 200;
+        $return['message'] = 'Le commentaire a été envoyé, il est en attente de validation.';
+        echo json_encode($return);
     }
-
 }
