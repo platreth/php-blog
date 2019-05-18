@@ -36,13 +36,13 @@ class PostController extends Controller
                 $manager = new PostManager();
                 $manager->insert($_POST, $uploadfile);
                 $this->setFlashMessage('Votre post a été crée', true, 'success');
-                echo $this->twig->render('post/new-post.html');
+                $this->render('post/new-post.html');
             } else {
                 $this->setFlashMessage('Erreur sur la création du post', true, 'error');
-                echo $this->twig->render('post/new-post.html', array('message' => 'erreur'));
+                $this->render('post/new-post.html', array('message' => 'erreur'));
             } else:
                 //Affichage du formulaire si on arrive juste sur la page.
-                echo $this->twig->render('post/new-post.html');
+                $this->render('post/new-post.html');
 
 
             endif;
@@ -55,7 +55,7 @@ class PostController extends Controller
         //On récupère les posts en fonction de l'utilisateur connecté et on les passe en paramètre.
         $manager = new PostManager();
         $posts =  $manager->getMyPost();
-        echo $this->twig->render('post/my-post.html', array('posts' => $posts));
+        $this->render('post/my-post.html', array('posts' => $posts));
     }
 
     // MODIFICATION D'UN POST
@@ -75,7 +75,7 @@ class PostController extends Controller
                 $this->setFlashMessage('Le post a bien été modifié', false, 'success');
                 header("Location: /post/mypost"); else:
 
-                    echo $this->twig->render('post/edit-post.html', array('post' => $post));
+                    $this->render('post/edit-post.html', array('post' => $post));
 
                 endif;
     }
@@ -99,13 +99,13 @@ class PostController extends Controller
 
         $manager = new PostManager();
         $post = $manager->getPost($id);
-        echo $this->twig->render('index/post-page.html', array('post' => $post, 'comments' => $comment));
+        $this->render('index/post-page.html', array('post' => $post, 'comments' => $comment));
     }
 
     public function addComment($id)
     {
         $comment_manager = new CommentManager();
-        $comment_manager->createComment($id, $_SESSION['user']->id, $_POST['message']);
+        $comment_manager->createComment($id, $this->getSession('user')->id, $_POST['message']);
 
         //VERIFICATIONS
         $return = array();
