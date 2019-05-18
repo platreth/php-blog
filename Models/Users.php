@@ -21,6 +21,6 @@ class Users extends \Spot\Entity
         'password'  => ['type' => 'string', 'required' => true],
         'admin'     => ['type' => 'string', 'default' => false],
         'token'     => ['type' => 'string']
-      ];
+        ];
     }
 }

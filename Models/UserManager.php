@@ -10,12 +10,14 @@ class UserManager
     {
         $userMapper = spot()->mapper('Models\Users');
         $userMapper->migrate();
-        $myNewUser = $userMapper->create([
-        'name'      => $post['nom'],
-        'firstname' => $post['prenom'],
-        'email'     => $post['email'],
-        'password'  => $post['mdp']
-      ]);
+        $myNewUser = $userMapper->create(
+            [
+            'name'      => $post['nom'],
+            'firstname' => $post['prenom'],
+            'email'     => $post['email'],
+            'password'  => $post['mdp']
+            ]
+        );
     }
 
     public function check($post)

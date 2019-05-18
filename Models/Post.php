@@ -24,7 +24,7 @@ class Post extends \Spot\Entity
         'content'       => ['type' => 'text', 'required' => true],
         'status'       => ['type' => 'string', 'required' => true, 'value' => 'active'],
 
-      ];
+        ];
     }
     public static function relations(Mapper $mapper, Entity $entity)
     {
