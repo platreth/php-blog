@@ -12,7 +12,7 @@ class MailManager
     {
 
 
-    //MAIL : phpblog@commerce-lille.com
+        //MAIL : phpblog@commerce-lille.com
         //MAIL MDP : kC2_YRxK4T
 
         // Instantiation and passing `true` enables exceptions
@@ -24,21 +24,21 @@ class MailManager
 
 
         //Server settings
-    $mail->SMTPDebug = 0;                                       // Enable verbose debug output
-    $mail->isSMTP();                                            // Set mailer to use SMTP
-    $mail->Host       = 'mail11.lwspanel.com';  // Specify main and backup SMTP servers
-    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-    $mail->Username   = 'phpblog@commerce-lille.com';                     // SMTP username
-    $mail->Password   = 'kC2_YRxK4T';                               // SMTP password
-    $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
-    $mail->Port       = 587;
+        $mail->SMTPDebug = 0;                                       // Enable verbose debug output
+        $mail->isSMTP();                                            // Set mailer to use SMTP
+        $mail->Host       = 'mail11.lwspanel.com';  // Specify main and backup SMTP servers
+        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+        $mail->Username   = 'phpblog@commerce-lille.com';                     // SMTP username
+        $mail->Password   = 'kC2_YRxK4T';                               // SMTP password
+        $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
+        $mail->Port       = 587;
         $mail->SMTPOptions = array(
-    'ssl' => array(
+        'ssl' => array(
         'verify_peer' => false,
         'verify_peer_name' => false,
         'allow_self_signed' => true
-    )
-);
+        )
+        );
 
         //Recipients
         $mail->setFrom('phpblog@commerce-lille.com', 'phpblog');
@@ -49,8 +49,8 @@ class MailManager
         // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 
         // Content
-    $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = $subject;
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = $subject;
         $mail->Body    = $body;
 
         $mail->send();

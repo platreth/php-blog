@@ -20,7 +20,7 @@ class Comment extends \Spot\Entity
         'created_date'  => ['type' => 'datetime', 'required' => true, 'value' => $datetime],
         'content'       => ['type' => 'text', 'required' => true],
         'status'       => ['type' => 'string', 'required' => true, 'value' => '0'],
-      ];
+        ];
     }
     public static function relations(Mapper $mapper, Entity $entity)
     {

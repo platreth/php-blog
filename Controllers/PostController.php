@@ -22,37 +22,37 @@ use Models\CommentManager;
 class PostController extends Controller
 {
 
-  // CREATION POST
+    // CREATION POST
     public function new()
     {
         // Si on passe en méthode POST alors on upload l'image du post et on l'insère en BDD sinon on affiche une erreur.
         //TODO : vérification champs formulaire
-        if ($_SERVER['REQUEST_METHOD'] === 'POST'):
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') :
 
-        $uploaddir = 'Public/img/post/';
-        $uploadfile = $uploaddir . basename($_FILES['image']['name']);
+            $uploaddir = 'Public/img/post/';
+            $uploadfile = $uploaddir . basename($_FILES['image']['name']);
 
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile)) {
-            $manager = new PostManager();
-            $manager->insert($_POST, $uploadfile);
-            $this->setFlashMessage('Votre post a été crée', true, 'success');
-            echo $this->twig->render('post/new-post.html');
-        } else {
-            $this->setFlashMessage('Erreur sur la création du post', true, 'error');
-            echo $this->twig->render('post/new-post.html', array('message' => 'erreur'));
-        } else:
-      //Affichage du formulaire si on arrive juste sur la page.
-      echo $this->twig->render('post/new-post.html');
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile)) {
+                $manager = new PostManager();
+                $manager->insert($_POST, $uploadfile);
+                $this->setFlashMessage('Votre post a été crée', true, 'success');
+                echo $this->twig->render('post/new-post.html');
+            } else {
+                $this->setFlashMessage('Erreur sur la création du post', true, 'error');
+                echo $this->twig->render('post/new-post.html', array('message' => 'erreur'));
+            } else:
+                //Affichage du formulaire si on arrive juste sur la page.
+                echo $this->twig->render('post/new-post.html');
 
 
-        endif;
+            endif;
     }
 
     // AFFICHAGE DE MES POSTS
     public function mypost()
     {
 
-      //On récupère les posts en fonction de l'utilisateur connecté et on les passe en paramètre.
+        //On récupère les posts en fonction de l'utilisateur connecté et on les passe en paramètre.
         $manager = new PostManager();
         $posts =  $manager->getMyPost();
         echo $this->twig->render('post/my-post.html', array('posts' => $posts));
@@ -63,21 +63,21 @@ class PostController extends Controller
     {
         $manager = new PostManager();
         $post = $manager->getPost($id);
-        if ($_SERVER['REQUEST_METHOD'] === 'POST'):
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') :
 
-          $uploaddir = 'Public/img/post/';
-        $uploadfile = $uploaddir . basename($_FILES['image']['name']);
-        if (!empty($_FILES['image']['name'])):
-            move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile); else:
-            $uploadfile = $post->image;
-        endif;
-        $manager->updatePost($_POST, $post->id, $uploadfile);
-        $this->setFlashMessage('Le post a bien été modifié', false, 'success');
-        header("Location: /post/mypost"); else:
+            $uploaddir = 'Public/img/post/';
+            $uploadfile = $uploaddir . basename($_FILES['image']['name']);
+            if (!empty($_FILES['image']['name'])) :
+                move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile); else:
+                    $uploadfile = $post->image;
+                endif;
+                $manager->updatePost($_POST, $post->id, $uploadfile);
+                $this->setFlashMessage('Le post a bien été modifié', false, 'success');
+                header("Location: /post/mypost"); else:
 
-        echo $this->twig->render('post/edit-post.html', array('post' => $post));
+                    echo $this->twig->render('post/edit-post.html', array('post' => $post));
 
-        endif;
+                endif;
     }
 
     // SUPPRESSION D'UN POST

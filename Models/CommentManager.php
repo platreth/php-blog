@@ -10,11 +10,13 @@ class CommentManager
     {
         $CommentMapper = spot()->mapper('Models\Comment');
         $CommentMapper->migrate();
-        $newComment = $CommentMapper->create([
+        $newComment = $CommentMapper->create(
+            [
             'author'     => $id_user,
             'id_post'     => $id_post,
             'content'     => $content,
-          ]);
+            ]
+        );
     }
 
     public function getWaitingValidationComment()
