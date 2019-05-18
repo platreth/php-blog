@@ -113,22 +113,25 @@ class PostController extends Controller
       $CommentManager = new CommentManager;
       $comment = $CommentManager->getComment($id);
 
+      $manager = new PostManager();
+      $post = $manager->getPost($id);
+      echo $this->twig->render('index/post-page.html', array('post' => $post, 'comments' => $comment));      
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST'):
+    }
+
+    public function addComment($id) {
 
           $comment_manager = new CommentManager();
-          $comment_manager->createComment($id, $_SESSION['user']->id, $_POST['content']);
+          $comment_manager->createComment($id, $_SESSION['user']->id, $_POST['message']);
 
-          $this->setFlashMessage('Le commentaire a été envoyé, il est en attente de validation.', true, 'info');
-          echo $this->twig->render('index/post-page.html', array('post' => $post, 'comments' => $comment));      
+            //VERIFICATIONS
+          $return = array();
 
-        else:
+          $return['type'] = 'info';
+          $return['code'] = 200;
+          $return['message'] = 'Le commentaire a été envoyé, il est en attente de validation.';
+          echo json_encode($return);     
 
-          $manager = new PostManager();
-          $post = $manager->getPost($id);
-          echo $this->twig->render('index/post-page.html', array('post' => $post, 'comments' => $comment));      
-
-      endif;
     }
 
 }

@@ -15,10 +15,11 @@ class Users extends \Spot\Entity
         'id'        => ['type' => 'integer', 'primary' => true, 'autoincrement' => true],
         'name'      => ['type' => 'string', 'required' => true, 'unique' => true],
         'firstname' => ['type' => 'string', 'required' => true],
-        'image'     => ['type' => 'string', 'required' => true, 'value' => 'Public/img/user/user-profile.png'],
+        'image'     => ['type' => 'string', 'required' => true, 'value' => '/Public/img/user/user-profile.png'],
         'email'     => ['type' => 'string', 'required' => true],
         'password'  => ['type' => 'string', 'required' => true],
-        'admin'     => ['type' => 'string', 'default' => false]
+        'admin'     => ['type' => 'string', 'default' => false],
+        'token'     => ['type' => 'string']
       ];
     }
 }

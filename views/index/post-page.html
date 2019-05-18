@@ -96,7 +96,7 @@
                   </div>
 
                   <div class="text-center mt-4">
-                    <button class="btn btn-info btn-md" type="submit">Envoyer</button>
+                    <button class="btn btn-info btn-md" id="send_comment" type="button">Envoyer</button>
                   </div>
                 </form>
                 <!-- Default form reply -->
@@ -115,6 +115,16 @@
 
     </div>
   </main>
+
   <!--Main layout-->
 
     {% endblock %}
+{% block script %}
+{{parent()}}
+<script type="text/javascript">
+  let postid = '{{post.id}}';
+</script>
+
+    <script type="text/javascript" src="/Public/js/post.js"></script>
+
+{% endblock %}
