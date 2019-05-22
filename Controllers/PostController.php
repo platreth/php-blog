@@ -27,7 +27,7 @@ class PostController extends Controller
     {
         // Si on passe en méthode POST alors on upload l'image du post et on l'insère en BDD sinon on affiche une erreur.
         //TODO : vérification champs formulaire
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') :
+        if ($this->isPostAction()):
 
             $uploaddir = 'Public/img/post/';
             $uploadfile = $uploaddir . basename($_FILES['image']['name']);
@@ -63,7 +63,7 @@ class PostController extends Controller
     {
         $manager = new PostManager();
         $post = $manager->getPost($id);
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') :
+        if ($this->isPostAction()):
 
             $uploaddir = 'Public/img/post/';
             $uploadfile = $uploaddir . basename($_FILES['image']['name']);

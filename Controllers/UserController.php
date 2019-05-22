@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function create()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') :
+        if ($this->isPostAction()):
 
             if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) :
 
@@ -32,13 +32,14 @@ class UserController extends Controller
 
     public function login()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') :
+
+        if ($this->isPostAction()):
 
             $manager = new UserManager();
             $check = $manager->check($_POST);
             if (!$check == false) :
 
-                $this->getSession('user') = $check;
+                $_SESSION['user'] = $check;
                 $this->setFlashMessage('Vous êtes connecté', false, 'success');
                 header("Location: /account"); else:
                     $this->setFlashMessage('Erreur sur le mot de passe ou l\'email.', true, 'error');
@@ -68,7 +69,7 @@ class UserController extends Controller
 
     public function reset_password()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') :
+        if ($this->isPostAction()):
             $manager = new UserManager();
             $check = $manager->CheckEmail($_POST['email']);
             if (!$check == false) :
@@ -106,7 +107,7 @@ class UserController extends Controller
 
         if (!$check == false) :
 
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') :
+            if ($this->isPostAction()):
                 if (strlen($_POST["password"]) >= '8') :
                       $manager->updatePassword($_POST['password'], $mail);
                       
@@ -133,7 +134,7 @@ class UserController extends Controller
         $manager = new UserManager();
         $user = $manager->information($this->getSession('user')->id);
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') :
+        if ($this->isPostAction()):
 
             if (!is_dir("Public/img/user/". $user->id ."")) :
                 mkdir("Public/img/user/". $user->id ."", 0777);

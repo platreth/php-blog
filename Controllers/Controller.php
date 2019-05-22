@@ -65,6 +65,15 @@ class Controller
       return $_SESSION[$key];
 
     }
+
+    public function isPostAction() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST'):
+            return true;
+        else:
+            return false;
+        endif;
+        
+    }
 }
 
 
