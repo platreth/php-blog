@@ -10,7 +10,7 @@ class CommentManager
     {
         $CommentMapper = spot()->mapper('Models\Comment');
         $CommentMapper->migrate();
-        $newComment = $CommentMapper->create(
+        $CommentMapper->create(
             [
             'author'     => $id_user,
             'id_post'     => $id_post,

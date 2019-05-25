@@ -38,7 +38,7 @@ class UserController extends Controller
             $check = $manager->check($_POST);
             if (!$check == false) :
 
-                $this->getSession('user') = $check;
+                $_SESSION['users'] = $check;
                 $this->setFlashMessage('Vous êtes connecté', false, 'success');
                 header("Location: /account"); else:
                     $this->setFlashMessage('Erreur sur le mot de passe ou l\'email.', true, 'error');
@@ -124,8 +124,6 @@ class UserController extends Controller
                         $this->setFlashMessage('Erreur', true, 'warning');
                         $this->render('user/login.html');
                     endif;
-
-                    die;
     }
 
     public function information()

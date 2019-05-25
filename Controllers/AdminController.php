@@ -38,29 +38,29 @@ class AdminController extends Controller
         $this->render('admin/admin-user.html', array('users' => $users));
     }
 
-    public function approve($id)
+    public function approve($user_id)
     {
         $this->checkAdmin();
         $manager = new CommentManager();
-        $manager->approveComment($id);
+        $manager->approveComment($user_id);
         $this->setFlashMessage('Commentaire approuvé', false, 'success');
         header("Location: /admin/comment");
     }
 
-    public function delete($id)
+    public function delete($user_id)
     {
         $this->checkAdmin();
         $manager = new CommentManager();
-        $manager->deleteComment($id);
+        $manager->deleteComment($user_id);
         $this->setFlashMessage('Commentaire supprimé', false, 'success');
         header("Location: /admin/comment");
     }
 
-    public function grantUser($id)
+    public function grantUser($user_id)
     {
         $this->checkAdmin();
         $manager = new UserManager();
-        $manager->grant($id);
+        $manager->grant($user_id);
         $this->setFlashMessage('L\'utilisateur est maintenant admin !', false, 'success');
         header("Location: /admin/user");
     }

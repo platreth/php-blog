@@ -12,7 +12,6 @@ class Controller
     public function __construct()
     {
         session_start();
-        $className = substr(get_class($this), 12, -10);
         // Configuration de twig
         $loader = new Twig_Loader_Filesystem('./views/');
         $this->twig = new Twig_Environment(
@@ -35,9 +34,11 @@ class Controller
     {
         if (isset($_SESSION) && isset($_SESSION['flashmessage'])) :
             if (isset($_SESSION['flashmessage'][$type])) :
-                array_push($_SESSION['flashmessage'][$type], $message); else:
+                array_push($_SESSION['flashmessage'][$type], $message); 
+              else:
                     $_SESSION['flashmessage'][$type] = array($message);
-                endif; elseif (isset($_SESSION)) :
+                endif;
+                 elseif (isset($_SESSION)) :
                     $_SESSION['flashmessage'][$type] = array($message);
                 endif;
                 if ($showimmediate) {
