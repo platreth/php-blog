@@ -49,18 +49,18 @@ class PostManager
         return $check;
     }
 
-    public function getPost($id)
+    public function getPost($key)
     {
         $mapper = spot()->mapper('Models\Post');
         $mapper->migrate();
-        $check = $mapper->first(['id' => $id]);
+        $check = $mapper->first(['id' => $key]);
         return $check;
     }
 
-    public function updatePost($post, $id, $image)
+    public function updatePost($post, $key, $image)
     {
         $mapper = spot()->mapper('Models\Post');
-        $entity = $mapper->first(['id' => $id]);
+        $entity = $mapper->first(['id' => $key]);
         $entity->title = $post['title'];
         $entity->subtitle = $post['subtitle'];
         $entity->content = $post['content'];
@@ -69,10 +69,10 @@ class PostManager
         $mapper->update($entity);
     }
 
-    public function deletePost($id)
+    public function deletePost($key)
     {
         $mapper = spot()->mapper('Models\Post');
-        $entity = $mapper->first(['id' => $id]);
+        $entity = $mapper->first(['id' => $key]);
         $mapper->delete($entity);
     }
 }
