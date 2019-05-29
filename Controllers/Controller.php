@@ -76,6 +76,11 @@ class Controller
     {
         return $_FILES[$image][$name];
     }
+
+    public function redirect($path)
+    {
+        header("Location: ".$path."");
+    }
 }
 
 

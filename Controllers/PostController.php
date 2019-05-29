@@ -59,7 +59,7 @@ class PostController extends Controller
     }
 
     // MODIFICATION D'UN POST
-    public function edit($keu)
+    public function edit($key)
     {
         $manager = new PostManager();
         $post = $manager->getPost($key);
@@ -86,7 +86,7 @@ class PostController extends Controller
         $manager = new PostManager();
         $manager->deletePost($_GET['id']);
         $this->setFlashMessage('Le post a bien été supprimé', false, 'success');
-        header("Location: /post/mypost");
+        $this->redirect('/post/mypost');
     }
     // AFFICHAGE D'UN ARTICLE
     public function ArticleShow($key)
