@@ -16,7 +16,8 @@ class Controller
         // Configuration de twig
         $loader = new Twig_Loader_Filesystem('./views/');
         $this->twig = new Twig_Environment(
-            $loader, array(
+            $loader,
+            array(
             'cache' => false,
             )
         );
@@ -37,12 +38,12 @@ class Controller
             if (isset($_SESSION['flashmessage'][$type])) :
                 array_push($_SESSION['flashmessage'][$type], $message); else:
                     $_SESSION['flashmessage'][$type] = array($message);
-                endif; elseif (isset($_SESSION)) :
+        endif; elseif (isset($_SESSION)) :
                     $_SESSION['flashmessage'][$type] = array($message);
-                endif;
-                if ($showimmediate) {
-                    $this->getFlashMessage();
-                }
+        endif;
+        if ($showimmediate) {
+            $this->getFlashMessage();
+        }
     }
 
     // FONCTION GET POUR LES FLASH MESSAGE
@@ -50,31 +51,35 @@ class Controller
     {
         if (isset($_SESSION) && isset($_SESSION['flashmessage'])) :
             $this->twig->addGlobal('flashmessage', $_SESSION['flashmessage']);
-            unset($_SESSION['flashmessage']);
+        unset($_SESSION['flashmessage']);
         endif;
     }
 
-    public function render($path, $var = array()) {
-
-      echo $this->twig->render($path,  $var);
-
+    public function render($path, $var = array())
+    {
+        echo $this->twig->render($path, $var);
     }
 
-    public function getSession($key) {
-
-      return $_SESSION[$key];
-
+    public function getSession($key)
+    {
+        return $_SESSION[$key];
     }
 
-    public function isPostAction() {
+    public function isPostAction()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST'):
-            return true;
-        else:
+            return true; else:
             return false;
         endif;
-        
+    }
+
+    public function getFile($image, $name)
+    {
+        return $_FILES[$image][$name];
     }
 }
+
+
 
 
 // TODO

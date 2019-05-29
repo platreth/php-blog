@@ -30,22 +30,22 @@ class PostController extends Controller
         if ($this->isPostAction()):
 
             $uploaddir = 'Public/img/post/';
-            $uploadfile = $uploaddir . basename($_FILES['image']['name']);
+        $uploadfile = $uploaddir . basename($this->getFile('image', 'name'));
 
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile)) {
-                $manager = new PostManager();
-                $manager->insert($_POST, $uploadfile);
-                $this->setFlashMessage('Votre post a été crée', true, 'success');
-                $this->render('post/new-post.html');
-            } else {
-                $this->setFlashMessage('Erreur sur la création du post', true, 'error');
-                $this->render('post/new-post.html', array('message' => 'erreur'));
-            } else:
+        if (move_uploaded_file($this->getFile('image', 'tmp_name'), $uploadfile)) {
+            $manager = new PostManager();
+            $manager->insert($_POST, $uploadfile);
+            $this->setFlashMessage('Votre post a été crée', true, 'success');
+            $this->render('post/new-post.html');
+        } else {
+            $this->setFlashMessage('Erreur sur la création du post', true, 'error');
+            $this->render('post/new-post.html', array('message' => 'erreur'));
+        } else:
                 //Affichage du formulaire si on arrive juste sur la page.
                 $this->render('post/new-post.html');
 
 
-            endif;
+        endif;
     }
 
     // AFFICHAGE DE MES POSTS
@@ -66,18 +66,18 @@ class PostController extends Controller
         if ($this->isPostAction()):
 
             $uploaddir = 'Public/img/post/';
-            $uploadfile = $uploaddir . basename($_FILES['image']['name']);
-            if (!empty($_FILES['image']['name'])) :
-                move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile); else:
+        $uploadfile = $uploaddir . basename($this->getFile('image', 'name'));
+        if (!empty($this->getFile('image', 'name'))) :
+                move_uploaded_file($this->getFile('image', 'tmp_name'), $uploadfile); else:
                     $uploadfile = $post->image;
-                endif;
-                $manager->updatePost($_POST, $post->id, $uploadfile);
-                $this->setFlashMessage('Le post a bien été modifié', false, 'success');
-                header("Location: /post/mypost"); else:
+        endif;
+        $manager->updatePost($_POST, $post->id, $uploadfile);
+        $this->setFlashMessage('Le post a bien été modifié', false, 'success');
+        header("Location: /post/mypost"); else:
 
                     $this->render('post/edit-post.html', array('post' => $post));
 
-                endif;
+        endif;
     }
 
     // SUPPRESSION D'UN POST
