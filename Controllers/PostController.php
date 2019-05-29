@@ -84,7 +84,7 @@ class PostController extends Controller
     public function delete()
     {
         $manager = new PostManager();
-        $post = $manager->deletePost($_GET['id']);
+        $manager->deletePost($_GET['id']);
         $this->setFlashMessage('Le post a bien été supprimé', false, 'success');
         header("Location: /post/mypost");
     }

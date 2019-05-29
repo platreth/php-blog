@@ -10,7 +10,7 @@ class PostManager
     {
         $userMapper = spot()->mapper('Models\Post');
         $userMapper->migrate();
-        $newPost = $userMapper->create(
+        $userMapper->create(
             [
             'author'     => $_SESSION['user']->id,
             'title'     => $post['title'],

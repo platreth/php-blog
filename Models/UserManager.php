@@ -10,7 +10,7 @@ class UserManager
     {
         $userMapper = spot()->mapper('Models\Users');
         $userMapper->migrate();
-        $myNewUser = $userMapper->create(
+        $userMapper->create(
             [
             'name'      => $post['nom'],
             'firstname' => $post['prenom'],

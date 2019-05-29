@@ -12,7 +12,6 @@ class Controller
     public function __construct()
     {
         session_start();
-        $className = substr(get_class($this), 12, -10);
         // Configuration de twig
         $loader = new Twig_Loader_Filesystem('./views/');
         $this->twig = new Twig_Environment(

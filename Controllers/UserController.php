@@ -124,8 +124,6 @@ class UserController extends Controller
                         $this->setFlashMessage('Erreur', true, 'warning');
         $this->render('user/login.html');
         endif;
-
-        die;
     }
 
     public function information()
