@@ -59,10 +59,10 @@ class PostController extends Controller
     }
 
     // MODIFICATION D'UN POST
-    public function edit($id)
+    public function edit($keu)
     {
         $manager = new PostManager();
-        $post = $manager->getPost($id);
+        $post = $manager->getPost($key);
         if ($this->isPostAction()):
 
             $uploaddir = 'Public/img/post/';
@@ -89,23 +89,23 @@ class PostController extends Controller
         header("Location: /post/mypost");
     }
     // AFFICHAGE D'UN ARTICLE
-    public function ArticleShow($id)
+    public function ArticleShow($key)
     {
         $manager = new PostManager();
-        $post = $manager->getPost($id);
+        $post = $manager->getPost($key);
 
         $CommentManager = new CommentManager;
-        $comment = $CommentManager->getComment($id);
+        $comment = $CommentManager->getComment($key);
 
         $manager = new PostManager();
-        $post = $manager->getPost($id);
+        $post = $manager->getPost($key);
         $this->render('index/post-page.html', array('post' => $post, 'comments' => $comment));
     }
 
-    public function addComment($id)
+    public function addComment($key)
     {
         $comment_manager = new CommentManager();
-        $comment_manager->createComment($id, $this->getSession('user')->id, $_POST['message']);
+        $comment_manager->createComment($key, $this->getSession('user')->id, $_POST['message']);
 
         //VERIFICATIONS
         $return = array();

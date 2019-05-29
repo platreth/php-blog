@@ -27,18 +27,18 @@ class CommentManager
         return $check;
     }
 
-    public function approveComment($id)
+    public function approveComment($key)
     {
         $mapper = spot()->mapper('Models\Comment');
-        $entity = $mapper->first(['id' => $id]);
+        $entity = $mapper->first(['id' => $key]);
         $entity->status = '1';
         $mapper->update($entity);
     }
 
-    public function deleteComment($id)
+    public function deleteComment($key)
     {
         $mapper = spot()->mapper('Models\Comment');
-        $entity = $mapper->first(['id' => $id]);
+        $entity = $mapper->first(['id' => $key]);
         $mapper->delete($entity);
     }
 

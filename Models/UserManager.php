@@ -28,11 +28,11 @@ class UserManager
         return $check;
     }
 
-    public function information($id)
+    public function information($key)
     {
         $mapper = spot()->mapper('Models\Users');
         $mapper->migrate();
-        $check = $mapper->first(['id' => $id]);
+        $check = $mapper->first(['id' => $key]);
         return $check;
     }
 
@@ -90,11 +90,11 @@ class UserManager
         return $entity;
     }
 
-    public function grant($id)
+    public function grant($key)
     {
         $mapper = spot()->mapper('Models\Users');
         $mapper->migrate();
-        $entity = $mapper->first(['id' => $id]);
+        $entity = $mapper->first(['id' => $key]);
         $entity->admin = '1';
         $mapper->update($entity);
     }
