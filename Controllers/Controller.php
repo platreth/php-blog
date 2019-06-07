@@ -35,8 +35,10 @@ class Controller
     {
         if (isset($_SESSION) && isset($_SESSION['flashmessage'])) :
             if (isset($_SESSION['flashmessage'][$type])) :
-                array_push($_SESSION['flashmessage'][$type], $message); else:
+                array_push($_SESSION['flashmessage'][$type], $message); 
+              else:
                     $_SESSION['flashmessage'][$type] = array($message);
+
         endif; elseif (isset($_SESSION)) :
                     $_SESSION['flashmessage'][$type] = array($message);
         endif;

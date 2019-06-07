@@ -37,11 +37,11 @@ class AdminController extends Controller
         $this->render('admin/admin-user.html', array('users' => $users));
     }
 
-    public function approve($key)
+    public function approve($user_id)
     {
         $this->checkAdmin();
         $manager = new CommentManager();
-        $manager->approveComment($key);
+        $manager->approveComment($user_id);
         $this->setFlashMessage('Commentaire approuvé', false, 'success');
         $this->redirect('/admin/comment');
     }
@@ -55,11 +55,11 @@ class AdminController extends Controller
         $this->redirect('/admin/comment');
     }
 
-    public function grantUser($key)
+    public function grantUser($user_id)
     {
         $this->checkAdmin();
         $manager = new UserManager();
-        $manager->grant($key);
+        $manager->grant($user_id);
         $this->setFlashMessage('L\'utilisateur est maintenant admin !', false, 'success');
         $this->redirect('/admin/user');
     }
