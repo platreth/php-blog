@@ -17,7 +17,7 @@ class AdminController extends Controller
         $user = $this->getSession('user');
         if ($user->admin != 1) {
             $this->setFlashMessage('L\'accès à cette page n\'est pas autorisé', false, 'warning');
-            header("Location: /");
+            $this->redirect('/');
         }
     }
 
@@ -26,7 +26,6 @@ class AdminController extends Controller
         $this->checkAdmin();
         $manager = new CommentManager();
         $comments = $manager->getWaitingValidationComment();
-
         $this->render('admin/admin-comment.html', array('comments' => $comments));
     }
 
@@ -44,16 +43,16 @@ class AdminController extends Controller
         $manager = new CommentManager();
         $manager->approveComment($user_id);
         $this->setFlashMessage('Commentaire approuvé', false, 'success');
-        header("Location: /admin/comment");
+        $this->redirect('/admin/comment');
     }
 
-    public function delete($user_id)
+    public function delete($key)
     {
         $this->checkAdmin();
         $manager = new CommentManager();
-        $manager->deleteComment($user_id);
+        $manager->deleteComment($key);
         $this->setFlashMessage('Commentaire supprimé', false, 'success');
-        header("Location: /admin/comment");
+        $this->redirect('/admin/comment');
     }
 
     public function grantUser($user_id)
@@ -62,6 +61,6 @@ class AdminController extends Controller
         $manager = new UserManager();
         $manager->grant($user_id);
         $this->setFlashMessage('L\'utilisateur est maintenant admin !', false, 'success');
-        header("Location: /admin/user");
+        $this->redirect('/admin/user');
     }
 }
