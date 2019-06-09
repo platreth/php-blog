@@ -37,9 +37,9 @@
       <div class="container">
 
         <!-- Brand -->
-                    {% if session.user %}
+                    {% if session.users %}
 
-           <img style="height: 30px; width: 30px; margin-right: 10px; margin-left: 20px;" class="embed-responsive-item" src="/{{ session.user.image }}" ></img>
+           <img style="height: 30px; width: 30px; margin-right: 10px; margin-left: 20px;" class="embed-responsive-item" src="/{{ session.users.image }}" ></img>
                        {% endif %} 
 
         <a class="navbar-brand waves-effect" href="/">
@@ -65,7 +65,7 @@
           </ul>
           <!-- Right -->
           <ul class="navbar-nav mr-auto">
-            {% if session.user %}
+            {% if session.users %}
             <li class="nav-item">
               <a class="nav-link waves-effect" href="/account">Mon compte</a>
             </li>

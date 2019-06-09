@@ -105,7 +105,7 @@ class PostController extends Controller
     public function addComment($key)
     {
         $comment_manager = new CommentManager();
-        $comment_manager->createComment($key, $this->getSession('user')->id, $_POST['message']);
+        $comment_manager->createComment($key, $this->getSession('users')->id, $_POST['message']);
 
         //VERIFICATIONS
         $return = array();
