@@ -1,12 +1,6 @@
 Pagination page blog et commentaires
 
-Readle BDD fichier sql base de test
-
-Commentaire design si pas connecté
-
 Php doc commentaires
-
-Popupvalidation supprimer post
 
 Password hash
 

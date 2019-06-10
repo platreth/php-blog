@@ -42,7 +42,7 @@
                 </p>
                 <a href="/post/edit/{{ post.id }}">Modifier</a>
                 <span>|</span>
-                <a href="/post/delete?id={{ post.id }}">Supprimer</a>
+                <a href="/post/delete?id={{ post.id }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer le post ?')">Supprimer</a>
               </div>
 
             </div>

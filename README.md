@@ -8,7 +8,7 @@
 
 - BDD : 
 	- Créer une nouvelle base qui s'appelle "phpblog" le reste se fait automatiquement.
-	- Changement d'identifiants de connexion à la base de donnée : Controllers/controller.php 
+	- Changement d'identifiants de connexion à la base de donnée : index.php 
 
 - php composer.phar install
 
