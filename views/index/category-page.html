@@ -24,7 +24,53 @@
         <!--Grid row-->
         <div class="row mb-4 wow fadeIn">
 
-{% for post in posts %}
+{% for post in posts|slice(0, 9) %}
+
+          <!--Grid column-->
+          <div class="col-lg-4 col-md-12 mb-4 0to9">
+            <!--Card-->
+          <a href="/post/show/{{ post.id }}">
+            <div class="card">
+
+              <!--Card image-->
+              <div class="view overlay">
+                <div class="embed-responsive embed-responsive-16by9 rounded-top">
+                  <img class="embed-responsive-item" src="/{{ post.image|e }}" ></img>
+                </div>
+              </div>
+
+              <!--Card content-->
+              <div class="card-body">
+                <!--Title-->
+                <h4 class="card-title">{{ post.title|e }}</h4>
+                <p class="card-text">
+                  {{ post.subtitle|e }}
+                </p>
+                <p class="card-text">
+                  <strong>{{ post.user.name }} {{ post.user.firstname }}</strong>
+                </p>
+                <p class="card-text">{{ post.created_date | date('d/m/y') }}</p>
+              </div>
+
+            </div>
+        </a>
+            <!--/.Card-->
+          </div>
+          <!--Grid column-->
+{% endfor %}
+</div>
+
+
+{% if posts|length > 9 %}
+    <div class="container">
+
+<button type="button" id="button-+" class="btn btn-primary" onclick="document.getElementById('9to18').style.display = ''; document.getElementById('button-+').style.display = 'none'">Voir +</button>
+</div>
+{% endif %}
+
+<div class="row mb-4 wow fadeIn" id ='9to18'  style="display: none">
+{% for post in posts|slice(9, 18) %}
+
 
           <!--Grid column-->
           <div class="col-lg-4 col-md-12 mb-4">
@@ -57,11 +103,8 @@
             <!--/.Card-->
           </div>
 
-          <!--Grid column-->
 {% endfor %}
-
-
-
+</div>
         </div>
         <!--Grid row-->
 
