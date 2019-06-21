@@ -14,7 +14,7 @@ class AdminController extends Controller
 {
     public function checkAdmin()
     {
-        $user = $this->getSession('user');
+        $user = $this->getSession('users');
         if ($user->admin != 1) {
             $this->setFlashMessage('L\'accès à cette page n\'est pas autorisé', false, 'warning');
             $this->redirect('/');

@@ -80,6 +80,7 @@
 {% endfor %}
             </div>
             <!--/.Comments-->
+              {% if session.users %}
 
             <!--Reply-->
             <div class="card mb-3 wow fadeIn">
@@ -102,8 +103,20 @@
                 <!-- Default form reply -->
               </div>
             </div>
-            <!--/.Reply-->
+              {% else %}
+              <div class="card mb-3 wow fadeIn">
+                  <div class="card-header font-weight-bold">Laisser un commentaire</div>
+                  <div class="card-body">
 
+                          <!-- Comment -->
+                          <div class="form-group">
+                              <label for="replyFormComment">Vous devez être connecté pour commenté cet article.</label>
+                          </div>
+
+
+                  </div>
+              </div>
+                {% endif %}
           </div>
           <!--Grid column-->
 

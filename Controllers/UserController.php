@@ -62,7 +62,7 @@ class UserController extends Controller
 
     public function account()
     {
-        $admin = $this->getSession('user')->admin;
+        $admin = $this->getSession('users')->admin;
         $this->render('user/account.html', array('admin' => $admin));
     }
 
@@ -111,7 +111,7 @@ class UserController extends Controller
                       $manager->updatePassword($_POST['password'], $mail);
                       
         $this->setFlashMessage('Votre mot de passe a été modifié', true, 'success');
-        $this->render('user/login.html'); else:
+        header("Location: /login"); else:
                               $this->setFlashMessage('Le mot de passe doit contenir au moins 8 caractères', true, 'success');
         $this->render('user/reset-password-reset.html');
         endif; else:
@@ -130,7 +130,7 @@ class UserController extends Controller
     public function information()
     {
         $manager = new UserManager();
-        $user = $manager->information($this->getSession('user')->id);
+        $user = $manager->information($this->getSession('users')->id);
 
         if ($this->isPostAction()):
 
@@ -141,13 +141,13 @@ class UserController extends Controller
         $uploadfile = $uploaddir . basename($_FILES['image']['name']);
         if (!empty($_FILES['image']['name'])) :
                 move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile); else:
-                    $uploadfile = $this->getSession('user')->image;
+                    $uploadfile = $this->getSession('users')->image;
         endif;
 
-        $manager->updateInformation($_POST, $uploadfile, $this->getSession('user')->id);
-        $this->getSession('user')->image = $uploadfile;
-        $this->getSession('user')->name = $_POST['nom'];
-        $this->getSession('user')->firstname = $_POST['prenom'];
+        $manager->updateInformation($_POST, $uploadfile, $this->getSession('users')->id);
+        $this->getSession('users')->image = $uploadfile;
+        $this->getSession('users')->name = $_POST['nom'];
+        $this->getSession('users')->firstname = $_POST['prenom'];
 
         header("Location: /account"); else:
 

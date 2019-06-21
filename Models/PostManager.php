@@ -12,7 +12,7 @@ class PostManager
         $userMapper->migrate();
         $userMapper->create(
             [
-            'author'     => $_SESSION['user']->id,
+            'author'     => $_SESSION['users']->id,
             'title'     => $post['title'],
             'image'     => $path,
             'subtitle'  => $post['subtitle'],
@@ -25,7 +25,7 @@ class PostManager
     {
         $mapper = spot()->mapper('Models\Post');
         $mapper->migrate();
-        $check = $mapper->where(['author' => $_SESSION['user']->id])
+        $check = $mapper->where(['author' => $_SESSION['users']->id])
             ->order(['created_date' => 'DESC']);
         return $check;
     }
