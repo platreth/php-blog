@@ -83,6 +83,12 @@ switch ($request_uri[0]) {
     case '/blog':
          return (new IndexController())->blog();
         break;
+    case '/blog/ajax':
+         return (new IndexController())->ajaxBlog();
+        break;
+    case '/mail':
+         return (new IndexController())->contactMail();
+        break;
     case '/admin':
       return (new AdminController())->index();
       break;

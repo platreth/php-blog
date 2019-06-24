@@ -155,4 +155,12 @@
   </main>
   <!--Main layout-->
 
+
     {% endblock %}
+    {% block script %}
+      {{parent()}}
+  <script type="text/javascript" src="/Public/js/blog.js"></script>
+
+    {% endblock %}
+
+
