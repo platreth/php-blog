@@ -21,17 +21,29 @@ class IndexController extends Controller
     }
     public function blog()
     {
-        $manager = new PostManager();
-        $posts =  $manager->getAllPost();
-        $this->render('index/category-page.html', array('posts' => $posts));
+        $this->render('index/category-page.html');
     }
 
     public function ajaxBlog() 
     {
+        $return = array();
         $start = $_POST['start'];
         $manager = new PostManager();
         $posts =  $manager->getPostAjax($start, 9);
-        echo json_encode($posts);
+        foreach ($posts as $post) {
+            $article = array();
+            $article['name'] = $post->user->name;
+            $article['firstname'] = $post->user->firstname;
+            $article['subtitle'] = $post->subtitle;
+            $article['title'] = $post->title;
+            $article['image'] = $post->image;
+            $article['id'] = $post->id;
+            $article['created_date'] = $post->created_date->format('d-m-Y');
+            array_push($return, $article);
+        }
+
+
+        echo json_encode($return);
     }
 
     public function contactMail() 

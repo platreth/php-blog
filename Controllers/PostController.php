@@ -95,11 +95,9 @@ class PostController extends Controller
         $post = $manager->getPost($key);
 
         $CommentManager = new CommentManager;
-        $comment = $CommentManager->getComment($key);
+        $nbComment = $CommentManager->countComment($key);
 
-        $manager = new PostManager();
-        $post = $manager->getPost($key);
-        $this->render('index/post-page.html', array('post' => $post, 'comments' => $comment));
+        $this->render('index/post-page.html', array('post' => $post, 'compteur' => $nbComment));
     }
 
     public function addComment($key)
@@ -115,4 +113,27 @@ class PostController extends Controller
         $return['message'] = 'Le commentaire a été envoyé, il est en attente de validation.';
         echo json_encode($return);
     }
+
+    public function ajaxComment()
+    {
+        $return = array();
+        $start = $_POST['start'];
+        $id = $_POST['id'];
+        $manager = new CommentManager();
+        $comments =  $manager->getComment($id, $start, 5);
+        foreach ($comments as $comment) {
+            $comm = array();
+            $comm['name'] = $comment->user->name;
+            $comm['firstname'] = $comment->user->firstname;
+            $comm['content'] = $comment->content;
+            $comm['image'] = $comment->user->image;
+            $comm['created_date'] = $comment->created_date->format('d-m-Y');
+            array_push($return, $comm);
+        }
+
+
+        echo json_encode($return);
+    }
+
+
 }
