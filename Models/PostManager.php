@@ -75,4 +75,15 @@ class PostManager
         $entity = $mapper->first(['id' => $key]);
         $mapper->delete($entity);
     }
+
+    public function getPostAjax($start, $limit) 
+    {
+        $mapper = spot()->mapper('Models\Post');
+        $mapper->migrate();
+        $check = $mapper->where(['status' => 'active'])
+            ->order(['created_date' => 'DESC'])
+            ->offset($start)
+            ->limit($limit);
+        return $check;
+    }
 }

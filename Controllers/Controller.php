@@ -18,6 +18,7 @@ class Controller
             $loader,
             array(
             'cache' => false,
+                'debug' => true,
             )
         );
 
@@ -25,6 +26,8 @@ class Controller
         $this->twig->addGlobal('session', $_SESSION);
         // Extension twig pour couper un texte et faire une preview
         $this->twig->addExtension(new \Twig_Extensions_Extension_Text());
+        $this->twig->addExtension(new \Twig\Extension\DebugExtension());
+
         // Appel de la fonction au cas où on ne veut pas l'afficher immédiatement.
         $this->getFlashMessage();
     }
