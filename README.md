@@ -16,6 +16,7 @@ ou
 
 - composer install
 
+[This is an absolute link to a nested file](https://notebooks.azure.com/anon-jhu4eq/libraries/ReadmeLinkingTest/html/testfolder/testfile.txt)
 
 Script base test :
 
